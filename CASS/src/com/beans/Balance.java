@@ -3,48 +3,59 @@ package com.beans;
 import java.util.Map;
 
 public class Balance {
-	private int id;
-	private double fundBalance;
+	private int clearingMemberId;
+	private double funds;
 	private Map <String, Integer> securityBalance;
 	private Rights rights;
+	
 	public Balance() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public Balance(int id, double fundBalance, Map<String, Integer> securityBalance, Rights rights) {
+
+	public Balance(int clearingMemberId, double funds, Map<String, Integer> securityBalance, Rights rights) {
 		super();
-		this.id = id;
-		this.fundBalance = fundBalance;
+		this.clearingMemberId = clearingMemberId;
+		this.funds = funds;
 		this.securityBalance = securityBalance;
 		this.rights = rights;
 	}
-	public int getId() {
-		return id;
+
+	public int getClearingMemberId() {
+		return clearingMemberId;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public void setClearingMemberId(int clearingMemberId) {
+		this.clearingMemberId = clearingMemberId;
 	}
-	public double getFundBalance() {
-		return fundBalance;
+
+	public double getFunds() {
+		return funds;
 	}
-	public void setFundBalance(double fundBalance) {
-		this.fundBalance = fundBalance;
+
+	public void setFunds(double funds) {
+		this.funds = funds;
 	}
+
 	public Map<String, Integer> getSecurityBalance() {
 		return securityBalance;
 	}
+
 	public void setSecurityBalance(Map<String, Integer> securityBalance) {
 		this.securityBalance = securityBalance;
 	}
+
 	public Rights getRights() {
 		return rights;
 	}
+
 	public void setRights(Rights rights) {
 		this.rights = rights;
 	}
+
 	@Override
 	public String toString() {
-		return "Balance [id=" + id + ", fundBalance=" + fundBalance + ", securityBalance=" + securityBalance
-				+ ", rights=" + rights + "]";
+		return "Balance [clearingMemberId=" + clearingMemberId + ", funds=" + funds + ", securityBalance="
+				+ securityBalance + ", rights=" + rights + "]";
 	}
+	
 }

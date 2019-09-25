@@ -2,7 +2,7 @@ package com.beans;
 
 public class Trade {
 	
-	private int id;
+	private int tradeId;
 	private String day;
 	private String securityName;
 	private int quantity;
@@ -12,11 +12,12 @@ public class Trade {
 	
 	public Trade() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public Trade(int id, String day, String securityName, int quantity, double price, String buyer, String seller) {
+	
+	public Trade(int tradeId, String day, String securityName, int quantity, double price, String buyer,
+			String seller) {
 		super();
-		this.id = id;
+		this.tradeId = tradeId;
 		this.day = day;
 		this.securityName = securityName;
 		this.quantity = quantity;
@@ -25,6 +26,18 @@ public class Trade {
 		this.seller = seller;
 	}
 	
+	public int getTradeId() {
+		return tradeId;
+	}
+	public void setTradeId(int tradeId) {
+		this.tradeId = tradeId;
+	}
+	public String getDay() {
+		return day;
+	}
+	public void setDay(String day) {
+		this.day = day;
+	}
 	public String getSecurityName() {
 		return securityName;
 	}
@@ -55,22 +68,9 @@ public class Trade {
 	public void setSeller(String seller) {
 		this.seller = seller;
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getDay() {
-		return day;
-	}
-	public void setDay(String day) {
-		this.day = day;
-	}
 	@Override
 	public String toString() {
-		return "Trade [id=" + id + ", day=" + day + ", securityName=" + securityName + ", quantity=" + quantity
-				+ ", price=" + price + ", buyer=" + buyer + ", seller=" + seller + "]";
+		return "Trade [tradeId=" + tradeId + ", day=" + day + ", securityName=" + securityName + ", quantity="
+				+ quantity + ", price=" + price + ", buyer=" + buyer + ", seller=" + seller + "]";
 	}
-
 }

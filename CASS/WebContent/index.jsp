@@ -7,6 +7,6 @@
 <title>Login</title>
 </head>
 <body>
-	Login page goes here!
+	<a href="startClearing">Start Clearance</a>
 </body>
 </html>
