@@ -1,12 +1,10 @@
 package com.algorithms;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.beans.Balance;
-import com.beans.ClearingMember;
 import com.beans.Rights;
 import com.beans.Security;
 
