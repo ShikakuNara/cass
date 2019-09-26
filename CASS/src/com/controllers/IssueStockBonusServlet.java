@@ -19,6 +19,8 @@ import com.dao.BalanceDaoUtil;
 @WebServlet("/IssueStockBonus")
 public class IssueStockBonusServlet extends HttpServlet {
 	
+	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Stock Bonus");
 		CorporateActions action = new CorporateActions();

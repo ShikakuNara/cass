@@ -11,4 +11,5 @@ public interface BalanceDao {
 	public Balance getBalanceByClearingMember(int clearingMemberId);
 	public boolean updateSecurity(String securityName, int quantity, int clearingMemberId);
 	public double updateFunds(double funds,int clearingMemberId);
+	public boolean updateFundBalance(List<Balance> balances);
 }

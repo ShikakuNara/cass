@@ -127,4 +127,9 @@ public class ObligationBalanceDaoUtil implements BalanceDao{
 		return false;
 	}
 
+	@Override
+	public boolean updateFundBalance(List<Balance> balances) {
+		return false;
+	}
+
 }

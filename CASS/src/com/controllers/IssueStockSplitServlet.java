@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.algorithms.CorporateActions;
 import com.beans.Balance;
-import com.beans.Rights;
 import com.dao.BalanceDaoUtil;
-import com.dao.RightDaoUtil;
 
 /**
  * Servlet implementation class IssueStockSplitServlet
@@ -21,6 +19,8 @@ import com.dao.RightDaoUtil;
 @WebServlet("/IssueStockSplit")
 public class IssueStockSplitServlet extends HttpServlet {
 	
+	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Stock Split");
 		CorporateActions action = new CorporateActions();

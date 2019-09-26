@@ -127,6 +127,33 @@ public class BalanceDaoUtil implements BalanceDao{
 		return 0;
 	}
 	
+	@Override
+	public boolean updateFundBalance(List<Balance> balances) {
+		boolean isUpdated = false;
+		String SQL_UPDATE_BALANCES = "UPDATE balances SET funds=? WHERE clearingMemberId=?";
+		
+		try(Connection conn = DBConnection.openConnection()){
+			conn.setAutoCommit(false);
+			PreparedStatement ps = conn.prepareStatement(SQL_UPDATE_BALANCES);
+			
+			for(Balance balance : balances) {
+				ps.setDouble(1, balance.getFunds());
+				ps.setInt(2, balance.getClearingMemberId());
+				
+				ps.addBatch();
+			}
+			int[] rs = ps.executeBatch();
+			
+			if(rs.length == 6) {
+				isUpdated = true;
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isUpdated;
+	}
+	
 	//Not useful
 	@Override
 	public boolean updateAllBalances(List<Balance> balances) {
