@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,14 +17,66 @@ public class BalanceDaoUtil implements BalanceDao{
 
 	@Override
 	public List<Balance> getAllBalances() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Balance> balances = new ArrayList<Balance>();
+		RightDaoUtil rightsDao = new RightDaoUtil();
+		
+		String SQL_GET_ALL_BALANCE = "SELECT * FROM Balances";
+		
+		
+		try(Connection conn = DBConnection.openConnection()){
+			PreparedStatement ps = conn.prepareStatement(SQL_GET_ALL_BALANCE);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				Balance balance = new Balance();
+				int clearingMemberId = rs.getInt("clearingMemberId");
+				balance.setClearingMemberId(clearingMemberId);
+				balance.setFunds(rs.getDouble("funds"));
+				Map<String, Integer> securityBalance = new HashMap<>();
+				securityBalance.put("Facebook", rs.getInt("facebook"));
+				securityBalance.put("LinkedIn", rs.getInt("linkedin"));
+				securityBalance.put("GE", rs.getInt("ge"));
+				securityBalance.put("Apple", rs.getInt("apple"));
+				securityBalance.put("Walmart", rs.getInt("walmart"));
+				balance.setSecurityBalance(securityBalance);
+				List<Rights> rights = rightsDao.getRightsByClearingMember(clearingMemberId);
+				balance.setRights(rights);
+				
+				balances.add(balance);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		
+		return balances;
 	}
 
 	@Override
-	public boolean updateAllBalances(List<Balance> balances) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateAllBalancesBySecurity(List<Balance> balances, String securityName) {
+		boolean isUpdated = false;
+		String SQL_UPDATE_BALANCES = "UPDATE balances SET"+securityName+"=? WHERE clearingMemberId=?";
+		
+		try(Connection conn = DBConnection.openConnection()){
+			conn.setAutoCommit(false);
+			PreparedStatement ps = conn.prepareStatement(SQL_UPDATE_BALANCES);
+			
+			for(Balance balance : balances) {
+				ps.setInt(1, balance.getSecurityBalance().get(securityName));
+				ps.setInt(2, balance.getClearingMemberId());
+				
+				ps.addBatch();
+			}
+			int[] rs = ps.executeBatch();
+			
+			if(rs.length == 6) {
+				isUpdated = true;
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isUpdated;
 	}
 
 	@Override
@@ -70,6 +123,12 @@ public class BalanceDaoUtil implements BalanceDao{
 	public double updateFunds(double funds, int clearingMemberId) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	//Not useful
+	@Override
+	public boolean updateAllBalances(List<Balance> balances) {
+		return false;
 	}
 
 }

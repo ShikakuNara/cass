@@ -126,7 +126,6 @@ class CorporateActionsTest {
 		CorporateActions action = new CorporateActions();
 		
 		balance = action.issueRights(1.5, balance, 101.5, "Apple");
-		double fund  = balance.get(0).getFunds();
 		List<Rights> rights = balance.get(0).getRights();
 		
 		assertEquals(150,rights.get(0).getQuantity());
@@ -140,7 +139,6 @@ class CorporateActionsTest {
 		
 		List<Rights> prevRights = balance.get(0).getRights();
 		balance = action.issueRights(1.5, balance, 101.5, "Linkedin");
-		double fund  = balance.get(0).getFunds();
 		
 		List<Rights> rights = balance.get(0).getRights();
 		
