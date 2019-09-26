@@ -138,17 +138,4 @@ public class ClearingMemberDaoUtil implements ClearingMemberDao{
 		return false;
 	
 	}
-	public static void main(String[] args) {
-		Balance b = new Balance();
-		Balance  ob = new Balance();
-		ClearingMemberDaoUtil dao=new ClearingMemberDaoUtil();
-		ArrayList<Trade> trade  = new ArrayList<Trade>();
-		trade.add(new Trade(1,"Monday", "Apple", 2500,100,"GS","DB"));
-		trade.add(new Trade(1,"Monday","GE",3000,45 ,"GS","GS"));
-		trade.add(new Trade(1,"Monday","FB",500,154,"GS" ,"NT"));
-		trade.add(new Trade(1,"Monday","FB",800 ,155 ,"DB","GS"));
-		boolean r=dao.updateIsSubmitted(new ClearingMember(1,"GS",b,ob,trade,false,true));
-		System.out.println(r);
-		dao.updateIsReportGenerated();
-	}
 }

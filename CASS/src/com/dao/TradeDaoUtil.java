@@ -26,7 +26,6 @@ public class TradeDaoUtil implements TradeDao{
 		try(Connection conn = DBConnection.openConnection()){
 			Statement st = conn.createStatement();
 			ResultSet rs = st.executeQuery(SQL_GET_TRADES);
-			
 			while (rs.next()) {
 				int id = rs.getInt("tradeid");
 				String day = rs.getString("day");
