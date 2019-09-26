@@ -73,14 +73,82 @@ public class ClearingMemberDaoUtil implements ClearingMemberDao{
 	}
 
 	@Override
-	public boolean updateIsSubmitted(boolean isSubmitted) {
-		// TODO Auto-generated method stub
+	public boolean updateIsSubmitted(ClearingMember clearingMember){
+		boolean isSubmitted=clearingMember.isSubmitted();
+		if(isSubmitted==false)
+			isSubmitted=true;
+		else
+			isSubmitted=false;
+		
+		String SQL_GET_CM = "Update clearingMembers set isSubmitted=? where clearingMemberID=?";
+		
+		try(Connection conn = DBConnection.openConnection()){
+           PreparedStatement ps = conn.prepareStatement(SQL_GET_CM);
+           ps.setInt(2,clearingMember.getClearingMemberID());
+           ps.setBoolean(1,isSubmitted);
+			int rows = ps.executeUpdate();
+			if(rows>0)
+				return true;
+			else
+				return false;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return false;
 	}
 
 	@Override
-	public boolean updateIsReportGenerated(boolean isReportGenerated) {
-		// TODO Auto-generated method stub
+	public boolean updateIsReportGenerated() {
+		String query1="Select distinct isReportGenerated from clearingMembers";
+		String SQL_GET_CM = "Update clearingMembers set isReportGenerated=?";
+		int rows=0;
+		boolean isReportGenerated=false;
+		
+		try(Connection conn = DBConnection.openConnection()){
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(query1);
+			PreparedStatement ps = conn.prepareStatement(SQL_GET_CM);
+			while(rs.next())
+			{
+			 isReportGenerated=rs.getBoolean("isReportGenerated");
+				
+			}
+			if(isReportGenerated==true) {
+				ps.setBoolean(1,false);
+				
+			}
+			else
+				ps.setBoolean(1,true);
+			 rows = ps.executeUpdate();
+			 if(rows>0)
+			 {
+				 return true;
+			 }
+			 else
+			 {
+				 return false;
+			 }
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return false;
+	
+	}
+	public static void main(String[] args) {
+		Balance b = new Balance();
+		Balance  ob = new Balance();
+		ClearingMemberDaoUtil dao=new ClearingMemberDaoUtil();
+		ArrayList<Trade> trade  = new ArrayList<Trade>();
+		trade.add(new Trade(1,"Monday", "Apple", 2500,100,"GS","DB"));
+		trade.add(new Trade(1,"Monday","GE",3000,45 ,"GS","GS"));
+		trade.add(new Trade(1,"Monday","FB",500,154,"GS" ,"NT"));
+		trade.add(new Trade(1,"Monday","FB",800 ,155 ,"DB","GS"));
+		boolean r=dao.updateIsSubmitted(new ClearingMember(1,"GS",b,ob,trade,false,true));
+		System.out.println(r);
+		dao.updateIsReportGenerated();
 	}
 }
