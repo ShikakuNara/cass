@@ -1,5 +1,7 @@
 package com.beans;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +13,10 @@ public class Balance {
 	
 	public Balance() {
 		super();
+		clearingMemberId = 0;
+		funds = 0;
+		securityBalance = new HashMap<String, Integer>();
+		rights  = new ArrayList<Rights>();
 	}
 
 	public Balance(int clearingMemberId, double funds, Map<String, Integer> securityBalance, List<Rights> rights) {
