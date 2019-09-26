@@ -1,61 +1,50 @@
 package com.beans;
 
-public class Security {
-	private int id;
+public class Security {	
 	private String securityName;
+	private double marketPrice;
 	private double faceValue;
 	private double interestRate;
-	private double price;
-
-	public Security(double faceValue, int id, int quantity, String securityName, double interest, double price) {
-		super();
-		this.id = id;
-		this.securityName = securityName;
-		this.faceValue = faceValue;
-		this.interestRate = interest;  
-		this.price = price;
-	}
+	
 	public Security() {
-		id = 0;
-		securityName = "";
-		faceValue = 0;
-		interestRate = 0;
-		price = 0;
+		super();
 	}
-
-	public double getFaceValue() {
-		return faceValue;
-	}
-	public void setFaceValue(double faceValue) {
+	
+	public Security(String securityName, double marketPrice, double faceValue, double interestRate) {
+		super();
+		this.securityName = securityName;
+		this.marketPrice = marketPrice;
 		this.faceValue = faceValue;
+		this.interestRate = interestRate;
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 	public String getSecurityName() {
 		return securityName;
 	}
 	public void setSecurityName(String securityName) {
 		this.securityName = securityName;
 	}
-	public double getInterest() {
+	public double getMarketPrice() {
+		return marketPrice;
+	}
+	public void setMarketPrice(double marketPrice) {
+		this.marketPrice = marketPrice;
+	}
+	public double getFaceValue() {
+		return faceValue;
+	}
+	public void setFaceValue(double faceValue) {
+		this.faceValue = faceValue;
+	}
+	public double getInterestRate() {
 		return interestRate;
 	}
-	public void setInterest(double interest) {
-		this.interestRate = interest;
-	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
+	public void setInterestRate(double interestRate) {
+		this.interestRate = interestRate;
 	}
 	@Override
 	public String toString() {
-		return "Security [faceValue=" + faceValue + ", id=" + id + ", securityName=" + securityName + ", interest="
-				+ interestRate + ", price=" + price + "]";
+		return "Security [securityName=" + securityName + ", marketPrice=" + marketPrice + ", faceValue=" + faceValue
+				+ ", interestRate=" + interestRate + "]";
 	}
 }

@@ -1,95 +1,79 @@
 package com.beans;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ClearingMember {
 	
-	private int id;
-	private String name;
+	private int clearingMemberID;
+	private String clearingMemberName;
 	Balance balance;
 	Balance obligationBalance;
-	ArrayList<Trade> trade;
+	List<Trade> trades;
 	boolean isSubmitted;
 	boolean isReportGenerated;
 	
 	public ClearingMember() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-
-	public ClearingMember(int id, String name, Balance balance, Balance obligationBalance, ArrayList<Trade> trade,
-			boolean isSubmitted, boolean isReportGenerated) {
+	
+	public ClearingMember(int clearingMemberID, String clearingMemberName, Balance balance, Balance obligationBalance,
+			List<Trade> trades, boolean isSubmitted, boolean isReportGenerated) {
 		super();
-		this.id = id;
-		this.name = name;
+		this.clearingMemberID = clearingMemberID;
+		this.clearingMemberName = clearingMemberName;
 		this.balance = balance;
 		this.obligationBalance = obligationBalance;
-		this.trade = trade;
+		this.trades = trades;
 		this.isSubmitted = isSubmitted;
 		this.isReportGenerated = isReportGenerated;
 	}
 
-	public int getId() {
-		return id;
+	public int getClearingMemberID() {
+		return clearingMemberID;
 	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setClearingMemberID(int clearingMemberID) {
+		this.clearingMemberID = clearingMemberID;
 	}
-
-	public String getName() {
-		return name;
+	public String getClearingMemberName() {
+		return clearingMemberName;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setClearingMemberName(String clearingMemberName) {
+		this.clearingMemberName = clearingMemberName;
 	}
-
 	public Balance getBalance() {
 		return balance;
 	}
-
 	public void setBalance(Balance balance) {
 		this.balance = balance;
 	}
-
 	public Balance getObligationBalance() {
 		return obligationBalance;
 	}
-
 	public void setObligationBalance(Balance obligationBalance) {
 		this.obligationBalance = obligationBalance;
 	}
-
-	public ArrayList<Trade> getTrade() {
-		return trade;
+	public List<Trade> getTrades() {
+		return trades;
 	}
-
-	public void setTrade(ArrayList<Trade> trade) {
-		this.trade = trade;
+	public void setTrades(List<Trade> trades) {
+		this.trades = trades;
 	}
-
 	public boolean isSubmitted() {
 		return isSubmitted;
 	}
-
 	public void setSubmitted(boolean isSubmitted) {
 		this.isSubmitted = isSubmitted;
 	}
-
 	public boolean isReportGenerated() {
 		return isReportGenerated;
 	}
-
 	public void setReportGenerated(boolean isReportGenerated) {
 		this.isReportGenerated = isReportGenerated;
 	}
-
 	@Override
 	public String toString() {
-		return "ClearingMember [id=" + id + ", name=" + name + ", balance=" + balance + ", obligationBalance="
-				+ obligationBalance + ", trade=" + trade + ", isSubmitted=" + isSubmitted + ", isReportGenerated="
-				+ isReportGenerated + "]";
+		return "ClearingMember [clearingMemberID=" + clearingMemberID + ", clearingMemberName=" + clearingMemberName
+				+ ", balance=" + balance + ", obligationBalance=" + obligationBalance + ", trades=" + trades
+				+ ", isSubmitted=" + isSubmitted + ", isReportGenerated=" + isReportGenerated + "]";
 	}
-
 }

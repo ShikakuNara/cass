@@ -2,52 +2,59 @@ package com.beans;
 
 public class Rights {
 	
-	private int id;
-	private double price;
+	private int rightsId;
+	private double marketPrice;
 	private String securityName;
 	private int quantity;
 	
-
 	public Rights() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public Rights(int id,double price, String securityName, int quantity) {
+	
+	public Rights(int rightsId, double marketPrice, String securityName, int quantity) {
 		super();
-		this.id = id;
-		this.price = price;
+		this.rightsId = rightsId;
+		this.marketPrice = marketPrice;
 		this.securityName = securityName;
 		this.quantity = quantity;
 	}
-	
-	public int getId() {
-		return id;
+
+	public int getRightsId() {
+		return rightsId;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public void setRightsId(int rightsId) {
+		this.rightsId = rightsId;
 	}
-	public double getPrice() {
-		return price;
+
+	public double getMarketPrice() {
+		return marketPrice;
 	}
-	public void setPrice(double price) {
-		this.price = price;
+
+	public void setMarketPrice(double marketPrice) {
+		this.marketPrice = marketPrice;
 	}
+
 	public String getSecurityName() {
 		return securityName;
 	}
+
 	public void setSecurityName(String securityName) {
 		this.securityName = securityName;
 	}
+
 	public int getQuantity() {
 		return quantity;
 	}
+
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
 	@Override
 	public String toString() {
-		return "Rights [id=" + id + ", price=" + price + ", securityName=" + securityName + ", quantity=" + quantity
-				+ "]";
+		return "Rights [rightsId=" + rightsId + ", marketPrice=" + marketPrice + ", securityName=" + securityName
+				+ ", quantity=" + quantity + "]";
 	}
 
 }
