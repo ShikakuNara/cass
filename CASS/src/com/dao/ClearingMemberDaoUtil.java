@@ -19,6 +19,9 @@ public class ClearingMemberDaoUtil implements ClearingMemberDao{
 		
 		List<ClearingMember> clearingMembers = new ArrayList<ClearingMember>();
 		TradeDaoUtil tradeDao = new TradeDaoUtil();
+		BalanceDaoUtil balanceDao = new BalanceDaoUtil();
+		ObligationBalanceDaoUtil obligationBalanceDao = new ObligationBalanceDaoUtil();		
+		
 		String SQL_GET_CM = "SELECT * FROM clearingmembers";
 		
 		try(Connection conn = DBConnection.openConnection()){
@@ -31,8 +34,8 @@ public class ClearingMemberDaoUtil implements ClearingMemberDao{
 				boolean isSubmitted= rs.getBoolean("isSubmitted");
 				boolean isReportGenerated = rs.getBoolean("isReportGenerated");
 				List<Trade> trades = tradeDao.getTradesByClearingMember(clearingMemberID);
-				Balance balance = new Balance();
-				Balance obligationBalance = new Balance();
+				Balance balance = balanceDao.getBalanceByClearingMember(clearingMemberID);
+				Balance obligationBalance = obligationBalanceDao.getBalanceByClearingMember(clearingMemberID);
 				
 				ClearingMember cm = new ClearingMember(clearingMemberID, clearingMemberName, balance, obligationBalance, trades, isSubmitted, isReportGenerated);
 				

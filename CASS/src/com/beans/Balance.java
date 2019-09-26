@@ -1,18 +1,19 @@
 package com.beans;
 
+import java.util.List;
 import java.util.Map;
 
 public class Balance {
 	private int clearingMemberId;
 	private double funds;
 	private Map <String, Integer> securityBalance;
-	private Rights rights;
+	private List<Rights> rights;
 	
 	public Balance() {
 		super();
 	}
 
-	public Balance(int clearingMemberId, double funds, Map<String, Integer> securityBalance, Rights rights) {
+	public Balance(int clearingMemberId, double funds, Map<String, Integer> securityBalance, List<Rights> rights) {
 		super();
 		this.clearingMemberId = clearingMemberId;
 		this.funds = funds;
@@ -44,11 +45,11 @@ public class Balance {
 		this.securityBalance = securityBalance;
 	}
 
-	public Rights getRights() {
+	public List<Rights> getRights() {
 		return rights;
 	}
 
-	public void setRights(Rights rights) {
+	public void setRights(List<Rights> rights) {
 		this.rights = rights;
 	}
 

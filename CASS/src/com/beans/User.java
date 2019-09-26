@@ -7,15 +7,17 @@ public class User {
 	private String username;
 	private String password;
 	private Role role;
+	private int clearingMemberId;
+	
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public User(String username, String password, Role role) {
+	public User(String username, String password, Role role, int clearingMemberId) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		this.clearingMemberId = clearingMemberId;
 	}
 	public String getUsername() {
 		return username;
@@ -35,9 +37,15 @@ public class User {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+	public int getClearingMemberId() {
+		return clearingMemberId;
+	}
+	public void setClearingMemberId(int clearingMemberId) {
+		this.clearingMemberId = clearingMemberId;
+	}
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", role=" + role + "]";
+		return "User [username=" + username + ", password=" + password + ", role=" + role + ", clearingMemberId="
+				+ clearingMemberId + "]";
 	}
-	
 }

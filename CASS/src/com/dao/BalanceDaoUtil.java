@@ -1,8 +1,15 @@
 package com.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.beans.Balance;
+import com.beans.Rights;
 import com.interfaces.BalanceDao;
 
 public class BalanceDaoUtil implements BalanceDao{
@@ -21,8 +28,36 @@ public class BalanceDaoUtil implements BalanceDao{
 
 	@Override
 	public Balance getBalanceByClearingMember(int clearingMemberId) {
-		// TODO Auto-generated method stub
-		return null;
+		Balance balance = new Balance();
+		RightDaoUtil rightsDao = new RightDaoUtil();
+		
+		String SQL_GET_BALANCE_BY_ID = "SELECT * FROM Balances WHERE clearingMemberId=?";
+		
+		
+		try(Connection conn = DBConnection.openConnection()){
+			PreparedStatement ps = conn.prepareStatement(SQL_GET_BALANCE_BY_ID);
+			
+			ps.setInt(1, clearingMemberId);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				balance.setClearingMemberId(rs.getInt("clearingMemberId"));
+				balance.setFunds(rs.getDouble("funds"));
+				Map<String, Integer> securityBalance = new HashMap<>();
+				securityBalance.put("Facebook", rs.getInt("facebook"));
+				securityBalance.put("LinkedIn", rs.getInt("linkedin"));
+				securityBalance.put("GE", rs.getInt("ge"));
+				securityBalance.put("Apple", rs.getInt("apple"));
+				securityBalance.put("Walmart", rs.getInt("walmart"));
+				balance.setSecurityBalance(securityBalance);
+				List<Rights> rights = rightsDao.getRightsByClearingMember(clearingMemberId);
+				balance.setRights(rights);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return balance;
 	}
 
 	@Override
