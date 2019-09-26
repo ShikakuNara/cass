@@ -1,5 +1,6 @@
 package com.algorithms;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,7 +70,9 @@ public class CorporateActions {
 	public List<Balance> issueRights(double factor, List<Balance> memberBalance, double marketPrice, String securityName)
 	{
 		Balance balance;
+		List<Rights> updatedRights = new ArrayList<Rights>();
 		for(int i=0; i<memberBalance.size(); i++) {
+			
 
 			balance=memberBalance.get(i);
 			Map<String, Integer> securityBalance = new HashMap<String, Integer>();
@@ -88,6 +91,7 @@ public class CorporateActions {
 				securityRights.setQuantity(newQuantity);
 				rights.add(securityRights);
 				balance.setRights(rights);
+				updatedRights.add(securityRights);
 			}
 
 		}

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,16 +25,16 @@ public class BalanceDaoUtil implements BalanceDao{
 		
 		
 		try(Connection conn = DBConnection.openConnection()){
-			PreparedStatement ps = conn.prepareStatement(SQL_GET_ALL_BALANCE);
-			
-			ResultSet rs = ps.executeQuery();
-			
+			Statement ps = conn.createStatement();
+			ResultSet rs = ps.executeQuery(SQL_GET_ALL_BALANCE);
+
 			while (rs.next()) {
 				Balance balance = new Balance();
 				int clearingMemberId = rs.getInt("clearingMemberId");
+				System.out.println(clearingMemberId);
 				balance.setClearingMemberId(clearingMemberId);
 				balance.setFunds(rs.getDouble("funds"));
-				Map<String, Integer> securityBalance = new HashMap<>();
+				Map<String, Integer> securityBalance = new HashMap<String, Integer>();
 				securityBalance.put("Facebook", rs.getInt("facebook"));
 				securityBalance.put("LinkedIn", rs.getInt("linkedin"));
 				securityBalance.put("GE", rs.getInt("ge"));
@@ -42,6 +43,7 @@ public class BalanceDaoUtil implements BalanceDao{
 				balance.setSecurityBalance(securityBalance);
 				List<Rights> rights = rightsDao.getRightsByClearingMember(clearingMemberId);
 				balance.setRights(rights);
+				System.out.println(balance);
 				
 				balances.add(balance);
 			}
@@ -55,7 +57,7 @@ public class BalanceDaoUtil implements BalanceDao{
 	@Override
 	public boolean updateAllBalancesBySecurity(List<Balance> balances, String securityName) {
 		boolean isUpdated = false;
-		String SQL_UPDATE_BALANCES = "UPDATE balances SET"+securityName+"=? WHERE clearingMemberId=?";
+		String SQL_UPDATE_BALANCES = "UPDATE balances SET "+securityName+"=? WHERE clearingMemberId=?";
 		
 		try(Connection conn = DBConnection.openConnection()){
 			conn.setAutoCommit(false);

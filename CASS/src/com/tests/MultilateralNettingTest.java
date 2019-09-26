@@ -69,13 +69,12 @@ class MultilateralNettingTest {
 	@Test
 	void testCalculateFundObligation() {
 
-		List<ClearingMember> updatedClearingMember = multiNet.calculateFundObligation(clearingMembers);
-		 assertEquals(203000,updatedClearingMember.get(0).getObligationBalance().getFunds());
-         assertEquals(2, updatedClearingMember.get(1).getClearingMemberID());
-		assertEquals(-1317700.0, updatedClearingMember.get(3).getObligationBalance().getFunds());
-     	assertEquals(-262400, updatedClearingMember.get(1).getObligationBalance().getFunds());
-		 assertEquals(885700,updatedClearingMember.get(2).getObligationBalance().getFunds());
-		assertEquals(-69600,updatedClearingMember.get(4).getObligationBalance().getFunds());
+		List<Balance> updatedClearingMember = multiNet.calculateFundObligation(clearingMembers);
+		 assertEquals(203000,updatedClearingMember.get(0).getFunds());
+		assertEquals(-1317700.0, updatedClearingMember.get(3).getFunds());
+     	assertEquals(-262400, updatedClearingMember.get(1).getFunds());
+		 assertEquals(885700,updatedClearingMember.get(2).getFunds());
+		assertEquals(-69600,updatedClearingMember.get(4).getFunds());
 	}
 
 	@Test

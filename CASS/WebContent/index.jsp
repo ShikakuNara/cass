@@ -8,5 +8,13 @@
 </head>
 <body>
 	<a href="startClearing">Start Clearance</a>
+	<br><br>
+	<a href="IssueRights">Issue Rights</a>
+	<br><br>
+	<a href="IssueStockSplit">Issue Stock Split</a>
+	<br><br>
+	<a href="IssueStockBonus">Issue Stock Bonus</a>
+	<br><br>
+	<a href="IssueCashDividend">Issue Cash Dividend</a>
 </body>
 </html>

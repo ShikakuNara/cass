@@ -30,5 +30,26 @@ public class SecurityDaoUtil implements SecurityDao {
 		
 		return securityName;
 	}
+	
+	public int getIdByName(String securityName) {
+		int id = 0;
+		String SQL_GET_ID_BY_NAME = "SELECT * FROM Security WHERE securityName=?";
+		
+		try(Connection conn = DBConnection.openConnection()){
+			PreparedStatement ps = conn.prepareStatement(SQL_GET_ID_BY_NAME);
+			
+			ps.setString(1, securityName);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				id = rs.getInt("securityID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return id;
+	}
 
 }

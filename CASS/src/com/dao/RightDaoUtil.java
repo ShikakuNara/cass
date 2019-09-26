@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.beans.ClearingMember;
 import com.beans.Rights;
 import com.interfaces.RightDao;
 
@@ -15,13 +16,56 @@ public class RightDaoUtil implements RightDao{
 	@Override
 	public int addRight(Rights rights, int clearingMemberId) {
 		// TODO Auto-generated method stub
-		return 0;
+		
+		String SQL_ADD_RIGHTS = "insert into rights(clearingmemberid, securityid, quantity, price) values(?,?,?,?)";
+		SecurityDaoUtil securityDao = new SecurityDaoUtil();
+		int securityId = securityDao.getIdByName(rights.getSecurityName());
+		int rows = 0;
+		
+		try(Connection conn = DBConnection.openConnection()){
+			PreparedStatement ps = conn.prepareStatement(SQL_ADD_RIGHTS);
+			
+			ps.setInt(1, clearingMemberId);
+			ps.setInt(2, securityId);
+			ps.setInt(3, rights.getQuantity());
+			ps.setDouble(4, rights.getMarketPrice());
+			
+			rows = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return rows;
 	}
 
 	@Override
 	public int updateQuantity(int clearingMemberId, int quantity, String securityName) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		String SQL_UPDATE_QUANTITY = "update rights set quantity=? where clearingmemberid=? and securityid=?";
+		SecurityDaoUtil securityDao = new SecurityDaoUtil();
+		int securityId = securityDao.getIdByName(securityName);
+		int rows = 0;
+		
+		try(Connection conn = DBConnection.openConnection()){
+			
+			PreparedStatement ps = conn.prepareStatement(SQL_UPDATE_QUANTITY);
+			
+			ps.setInt(1, quantity);
+			ps.setInt(2, clearingMemberId);
+			ps.setInt(3, securityId);
+			
+			rows = ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return rows;
 	}
 
 	@Override
@@ -53,4 +97,25 @@ public class RightDaoUtil implements RightDao{
 		return rights;
 	}
 
+	public static void main(String[] args) {
+		
+		System.out.println("Rights");
+		RightDaoUtil rightsDao = new RightDaoUtil();
+		
+		Rights rights = new Rights();
+		rights.setMarketPrice(100);
+		rights.setQuantity(150);
+		rights.setSecurityName("Apple");
+		
+	//	int rows = rightsDao.addRight(rights, 1);
+		
+		rightsDao.updateQuantity(1, 50, "Apple");
+		
+		List<Rights> r = rightsDao.getRightsByClearingMember(1);
+		System.out.println(r);
+		
+		
+	}
+
 }
+

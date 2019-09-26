@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.algorithms.MultiLateralNetting;
+import com.beans.Balance;
 import com.beans.ClearingMember;
+import com.dao.BalanceDaoUtil;
 import com.dao.ClearingMemberDaoUtil;
+import com.dao.ObligationBalanceDaoUtil;
 
 @WebServlet("/startClearing")
 public class StartClearingServlet extends HttpServlet {
@@ -23,8 +26,11 @@ public class StartClearingServlet extends HttpServlet {
 		List<ClearingMember> clearingMembers = clearingMemberDao.getAllClearingMembers();
 		
 		MultiLateralNetting netting = new MultiLateralNetting();
-		netting.calculateSecurityObligation(clearingMembers);
-		netting.calculateFundObligation(clearingMembers);		
+		//netting.calculateSecurityObligation(clearingMembers);
+		List<Balance> obligation = netting.calculateFundObligation(clearingMembers);	
+		
+		ObligationBalanceDaoUtil balanceDao = new ObligationBalanceDaoUtil();
+		balanceDao.updateAllBalances(obligation);
 	}
 
 }

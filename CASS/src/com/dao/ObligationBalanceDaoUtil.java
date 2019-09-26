@@ -51,7 +51,7 @@ public class ObligationBalanceDaoUtil implements BalanceDao{
 	@Override
 	public boolean updateAllBalances(List<Balance> balances) {
 		boolean isUpdated = false;
-		String SQL_UPDATE_BALANCES = "UPDATE balances SET funds=?,facebook=?,linkedin=?,ge=?,walmart=?,apple=? WHERE clearingMemberId=?";
+		String SQL_UPDATE_BALANCES = "UPDATE obligationbalances SET funds=?,facebook=?,linkedin=?,ge=?,walmart=?,apple=? WHERE clearingMemberId=?";
 		
 		try(Connection conn = DBConnection.openConnection()){
 			conn.setAutoCommit(false);
@@ -59,11 +59,11 @@ public class ObligationBalanceDaoUtil implements BalanceDao{
 			
 			for(Balance balance : balances) {
 				ps.setDouble(1, balance.getFunds());
-				ps.setInt(2, balance.getSecurityBalance().get("facebook"));
-				ps.setInt(3, balance.getSecurityBalance().get("linkedin"));
-				ps.setInt(4, balance.getSecurityBalance().get("ge"));
-				ps.setInt(5, balance.getSecurityBalance().get("walmart"));
-				ps.setInt(6, balance.getSecurityBalance().get("apple"));
+				ps.setInt(2, balance.getSecurityBalance().get("Facebook"));
+				ps.setInt(3, balance.getSecurityBalance().get("LinkedIn"));
+				ps.setInt(4, balance.getSecurityBalance().get("GE"));
+				ps.setInt(5, balance.getSecurityBalance().get("Walmart"));
+				ps.setInt(6, balance.getSecurityBalance().get("Apple"));
 				ps.setInt(7, balance.getClearingMemberId());
 				
 				ps.addBatch();

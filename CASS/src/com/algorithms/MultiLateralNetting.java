@@ -1,5 +1,6 @@
 package com.algorithms;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,9 +12,8 @@ import com.beans.Trade;
 
 public class MultiLateralNetting {
 
-	public List<ClearingMember> calculateFundObligation(List<ClearingMember> clearingMembers)
+	public List<Balance> calculateFundObligation(List<ClearingMember> clearingMembers)
 	{
-
 		clearingMembers.stream().forEach((member) -> {
 
 			System.out.println("\n"+member.getClearingMemberName());
@@ -41,8 +41,22 @@ public class MultiLateralNetting {
 			member.setObligationBalance(balance);
 											
 		});
+		
+		List<ClearingMember> updatedClearingMembers  = calculateSecurityObligation(clearingMembers);
+		
+		List<Balance> obligationBalances = new ArrayList<Balance>();
+		
+		Balance bal = new Balance();
+		
+		for(int i=0;i<clearingMembers.size();i++)
+		{	
+			bal  = clearingMembers.get(i).getObligationBalance();
+			bal.setSecurityBalance(updatedClearingMembers.get(i).getObligationBalance().getSecurityBalance());
+			
+			obligationBalances.add(bal);
+		}
 
-		return clearingMembers;
+		return obligationBalances;
 	}
 
 	public List<ClearingMember> calculateSecurityObligation(List<ClearingMember> clearingMembers)
@@ -54,8 +68,6 @@ public class MultiLateralNetting {
 
 			List<Trade> tradeList = member.getTrades();
 
-		//	Map<String, Integer> securityObligationCredit = new HashMap<String, Integer>();
-		//	Map<String, Integer> securityObligationDebit =  new HashMap<String, Integer>();
 			Map<String, Integer> securityObligation =  new HashMap<String, Integer>();
 
 
@@ -75,7 +87,6 @@ public class MultiLateralNetting {
 //			});
 			//System.out.println("Credit"+securityObligation);
 
-
 			List<Trade> totalSell = tradeList.stream()
 					.filter((trade)->{return trade.getSeller().equals(member.getClearingMemberName());})
 					.collect(Collectors.toList());
@@ -90,33 +101,6 @@ public class MultiLateralNetting {
 //			totalSell.forEach((trade) ->{ 
 //				System.out.println("Security: "+trade.getSecurityName()+" Quantity: "+trade.getQuantity());
 //			});
-
-		/*	
-			System.out.println("Debit"+securityObligationDebit);
-
-			for (String key : securityObligationCredit.keySet()) {
-				if (securityObligationDebit.containsKey(key)) {
-					int creditValue = securityObligationCredit.get(key);
-					int debitValue = securityObligationDebit.get(key);
-					securityObligation.put(key, debitValue - creditValue);
-				}
-				else
-				{
-					int creditValue = securityObligationCredit.get(key);
-					securityObligation.put(key, creditValue);
-				}
-			}
-			
-			for (String key : securityObligationDebit.keySet()) {
-				if (securityObligationDebit.containsKey(key)) {
-					int creditValue = securityObligationCredit.get(key);
-					int debitValue = securityObligationDebit.get(key);
-					securityObligation.put(key, debitValue - creditValue);
-				}
-			}
-
-			System.out.println(securityObligationCredit);
-			System.out.println(securityObligationDebit);*/
 
 			System.out.println("\nFinal obligation: ");
 			System.out.println(securityObligation);
