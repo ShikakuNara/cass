@@ -28,8 +28,13 @@ public class IssueStockSplitServlet extends HttpServlet {
 		BalanceDaoUtil balanceDao = new BalanceDaoUtil();
 		List<Balance> memberBalance = balanceDao.getAllBalances();
 		System.out.println(memberBalance);
-		double factor=Double.parseDouble(request.getParameter(""));
-		String security=request.getParameter("");
+		
+		double factor=Double.parseDouble(request.getParameter("factor"));
+		String security=request.getParameter("security");
+		
+		System.out.println("Factor: "+factor);
+		System.out.println("Security: "+security);
+		
 		List<Balance> balances = action.issueStockSplit(factor, memberBalance ,security);
 		System.out.println(balances);
 		balanceDao.updateAllBalancesBySecurity(balances,security);

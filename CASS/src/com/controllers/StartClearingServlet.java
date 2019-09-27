@@ -30,6 +30,8 @@ public class StartClearingServlet extends HttpServlet {
 		
 		ObligationBalanceDaoUtil balanceDao = new ObligationBalanceDaoUtil();
 		balanceDao.updateAllBalances(obligation);
+		
+		clearingMemberDao.updateIsReportGenerated();
 	}
 
 }

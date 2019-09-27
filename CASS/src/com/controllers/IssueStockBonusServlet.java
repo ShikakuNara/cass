@@ -28,8 +28,8 @@ public class IssueStockBonusServlet extends HttpServlet {
 		BalanceDaoUtil balanceDao = new BalanceDaoUtil();
 		List<Balance> memberBalance = balanceDao.getAllBalances();
 		System.out.println(memberBalance);
-		double factor=Double.parseDouble(request.getParameter(""));
-		String security=request.getParameter("");
+		double factor=Double.parseDouble(request.getParameter("factor"));
+		String security=request.getParameter("security");
 		List<Balance> balances = action.issueStockBonus(factor, memberBalance ,security);
 		
 		balanceDao.updateAllBalancesBySecurity(balances,security);

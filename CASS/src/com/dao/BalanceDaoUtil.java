@@ -109,6 +109,7 @@ public class BalanceDaoUtil implements BalanceDao{
 				List<Rights> rights = rightsDao.getRightsByClearingMember(clearingMemberId);
 				balance.setRights(rights);
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
