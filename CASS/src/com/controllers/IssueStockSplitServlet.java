@@ -3,6 +3,7 @@ package com.controllers;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,12 +28,14 @@ public class IssueStockSplitServlet extends HttpServlet {
 		BalanceDaoUtil balanceDao = new BalanceDaoUtil();
 		List<Balance> memberBalance = balanceDao.getAllBalances();
 		System.out.println(memberBalance);
-		List<Balance> balances = action.issueStockSplit(0.5, memberBalance , "Apple");
+		double factor=Double.parseDouble(request.getParameter(""));
+		String security=request.getParameter("");
+		List<Balance> balances = action.issueStockSplit(factor, memberBalance ,security);
 		System.out.println(balances);
-		
-		balanceDao.updateAllBalancesBySecurity(balances, "Apple");
-		
-		
+		balanceDao.updateAllBalancesBySecurity(balances,security);
+		RequestDispatcher dispatcher=request.getRequestDispatcher("");
+		request.setAttribute("message","Stock Split action sucessfully updated");
+		dispatcher.forward(request, response);
 		System.out.println("Stocks updated");
 	
 	}
