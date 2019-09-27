@@ -116,9 +116,31 @@ public class BalanceDaoUtil implements BalanceDao{
 	}
 
 	@Override
-	public boolean updateSecurity(String securityName, int quantity, int clearingMemberId) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateSecurity(Balance balance) {
+		boolean isUpdated = false;
+		String SQL_UPDATE_BALANCES = "UPDATE balances SET funds=?,facebook=?,linkedin=?,ge=?,walmart=?,apple=? WHERE clearingMemberId=?";
+		int rows=0;
+		try(Connection conn = DBConnection.openConnection()){
+			conn.setAutoCommit(false);
+			PreparedStatement ps = conn.prepareStatement(SQL_UPDATE_BALANCES);
+			
+				ps.setDouble(1, balance.getFunds());
+				ps.setInt(2, balance.getSecurityBalance().get("Facebook"));
+				ps.setInt(3, balance.getSecurityBalance().get("LinkedIn"));
+				ps.setInt(4, balance.getSecurityBalance().get("GE"));
+				ps.setInt(5, balance.getSecurityBalance().get("Walmart"));
+				ps.setInt(6, balance.getSecurityBalance().get("Apple"));
+				ps.setInt(7, balance.getClearingMemberId());
+				 rows=ps.executeUpdate();
+			
+			if(rows>0) {
+				isUpdated = true;
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return isUpdated;
 	}
 
 	@Override

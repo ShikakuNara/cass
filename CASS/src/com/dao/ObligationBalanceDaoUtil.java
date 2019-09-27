@@ -31,7 +31,7 @@ public class ObligationBalanceDaoUtil implements BalanceDao{
 				int clearingMemberId = rs.getInt("clearingMemberId");
 				balance.setClearingMemberId(clearingMemberId);
 				balance.setFunds(rs.getDouble("funds"));
-				Map<String, Integer> securityBalance = new HashMap<>();
+				Map<String, Integer> securityBalance = new HashMap<String,Integer>();
 				securityBalance.put("Facebook", rs.getInt("facebook"));
 				securityBalance.put("LinkedIn", rs.getInt("linkedin"));
 				securityBalance.put("GE", rs.getInt("ge"));
@@ -113,7 +113,7 @@ public class ObligationBalanceDaoUtil implements BalanceDao{
 		
 	//Not useful
 	@Override
-	public boolean updateSecurity(String securityName, int quantity, int clearingMemberId) {
+	public boolean updateSecurity(Balance balance) {
 		return false;
 	}
 
