@@ -16,5 +16,8 @@
 	<a href="IssueStockBonus">Issue Stock Bonus</a>
 	<br><br>
 	<a href="IssueCashDividend">Issue Cash Dividend</a>
+	<br><br>
+	<a href="shortageHandling">Calculate shortage and Settle obligation </a>
+	
 </body>
 </html>

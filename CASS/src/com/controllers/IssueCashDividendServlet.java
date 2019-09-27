@@ -13,6 +13,7 @@ import com.algorithms.CorporateActions;
 import com.beans.Balance;
 import com.beans.Security;
 import com.dao.BalanceDaoUtil;
+import com.dao.SecurityDaoUtil;
 
 /**
  * Servlet implementation class IssueCashDividendServlet
@@ -30,17 +31,15 @@ public class IssueCashDividendServlet extends HttpServlet {
 		List<Balance> memberBalance = balanceDao.getAllBalances();
 		System.out.println(memberBalance);
 		
+		SecurityDaoUtil securityDao = new SecurityDaoUtil();
 		Security security = new Security();
-		security.setSecurityName("Apple");
-		security.setFaceValue(100);
-		security.setInterestRate(7);
-		security.setMarketPrice(120);
-		
+		security = securityDao.getSecurityByName("Apple");
+		System.out.println(security);
 		
 		List<Balance> balances = action.issueCashDividend(10, memberBalance , security);
 		System.out.println(balances);
 		
-		balanceDao.updateAllBalancesBySecurity(balances, "Apple");
+		balanceDao.updateFundBalance(balances);
 		
 		
 		System.out.println("Stocks updated");
