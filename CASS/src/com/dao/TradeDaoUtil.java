@@ -77,6 +77,7 @@ public class TradeDaoUtil implements TradeDao{
 				String seller = clearingMemberDao.getNameById(sellerId);
 				Trade trade = new Trade(id, day, securityName, quantity, price, buyer, seller);
 				
+				System.out.println(trade);
 				trades.add(trade);
 			}
 		} catch (SQLException e) {
@@ -105,6 +106,13 @@ public class TradeDaoUtil implements TradeDao{
 	public boolean addTrade(Trade trade) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public static void main(String[] args) {
+		
+		TradeDao t = new  TradeDaoUtil();
+		List<Trade> trades  = t.getTradesByClearingMember(1);
+		System.out.println(trades);
 	}
 	
 	

@@ -18,6 +18,12 @@
 	<a href="IssueCashDividend">Issue Cash Dividend</a>
 	<br><br>
 	<a href="shortageHandling">Calculate shortage and Settle obligation </a>
+	<br><br>
+	<a href="form.jsp"> Display Balance </a>
+	<br><br>
+	<a href="corporateactions.jsp"> Corporate actions </a>
+	<br><br>
+	<a href="trades"> Trades </a>
 	
 </body>
 </html>
