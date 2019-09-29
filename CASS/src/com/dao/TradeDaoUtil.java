@@ -116,20 +116,102 @@ public class TradeDaoUtil implements TradeDao{
 		}
 			return t;
 	}
+	
 	@Override
 	public boolean updateTrade(Trade trade) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean updated = false;
+		String SQL_UPDATE_TRADE="UPDATE trades SET securityId = ?,quantity=?,price=?,buyerID=?,sellerID=?  WHERE tradeId = ?";
+		SecurityDaoUtil securityDao = new SecurityDaoUtil();
+		ClearingMemberDaoUtil clearingMemberDao = new ClearingMemberDaoUtil();
+		int buyerID = clearingMemberDao.getIdByName(trade.getBuyer());
+		int sellerID = clearingMemberDao.getIdByName(trade.getSeller());
+		int securityID = securityDao.getIdByName(trade.getSecurityName());
+		try(Connection conn = DBConnection.openConnection()){
+			PreparedStatement ps = conn.prepareStatement(SQL_UPDATE_TRADE);
+			ps.setInt(1, securityID );
+			ps.setInt(2, trade.getQuantity());
+			ps.setDouble(3, trade.getPrice());
+			ps.setInt(4, buyerID );
+			ps.setInt(5, sellerID );
+			ps.setInt(6, trade.getTradeId() );
+			
+			int update = ps.executeUpdate();
+			if(update>0) {
+				updated=true;
+				System.out.println("trade updated successfully");
+			}
+			else {
+				updated=false;
+				System.out.println("No change occurred");
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+			return updated;
+		
 	}
+	
+	
 	@Override
 	public boolean deleteTrade(Trade trade) {
-		// TODO Auto-generated method stub
-		return false;
+	     Boolean updated=false;
+		String SQL_DELETE_TRADE = "DELETE FROM trades WHERE tradeID=?"; 
+		try(Connection conn = DBConnection.openConnection()){
+			PreparedStatement ps = conn.prepareStatement(SQL_DELETE_TRADE);
+			
+			ps.setInt(1, trade.getTradeId() );
+			int update = ps.executeUpdate();
+			if(update >0) {
+				System.out.println("Deleted Records Successfully");
+				updated=true;
+			}
+			else {
+				System.out.println("No records found");
+				updated=false;
+			}
+		}catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return updated;
+		
+	
 	}
 	@Override
 	public boolean addTrade(Trade trade) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean updated=false;
+		String SQL_ADD_TRADE = "insert into trades values(?,?,?,?,?,?)";
+		SecurityDaoUtil securityDao = new SecurityDaoUtil();
+		ClearingMemberDaoUtil clearingMemberDao = new ClearingMemberDaoUtil();
+		int buyerID = clearingMemberDao.getIdByName(trade.getBuyer());
+		int sellerID = clearingMemberDao.getIdByName(trade.getSeller());
+		int securityID = securityDao.getIdByName(trade.getSecurityName());
+	
+		try(Connection conn = DBConnection.openConnection()){
+			PreparedStatement ps = conn.prepareStatement(SQL_ADD_TRADE);
+		
+			ps.setInt(1, trade.getTradeId() );
+			ps.setInt(2, securityID );
+			ps.setInt(3, trade.getQuantity());
+			ps.setDouble(4, trade.getPrice());
+			ps.setInt(5, buyerID );
+			ps.setInt(6, sellerID );
+			
+		int	rows = ps.executeUpdate();
+		
+		if(rows>0) {
+			updated=true;
+			System.out.println("Trade is successfully added");
+		}
+		else {
+			updated=false;
+			System.out.println("Something is wrong");
+		}
+	}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	return updated;
+		
+		
 	}
 	
 	public static void main(String[] args) {

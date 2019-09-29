@@ -71,6 +71,30 @@ public class ClearingMemberDaoUtil implements ClearingMemberDao{
 		
 		return clearingMemberName;
 	}
+	
+	@Override
+	public int getIdByName(String clearingMemberName) {
+		int id = 0;
+		String SQL_GET_ID_BY_NAME = "SELECT * FROM ClearingMembers WHERE clearingMemberName=?";
+		
+		try(Connection conn = DBConnection.openConnection()){
+			PreparedStatement ps = conn.prepareStatement(SQL_GET_ID_BY_NAME);
+			
+			ps.setString(1, clearingMemberName);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				id = rs.getInt("clearingMemberID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return id;
+	
+		
+	}
 
 	@Override
 	public boolean updateIsSubmitted(ClearingMember clearingMember){
