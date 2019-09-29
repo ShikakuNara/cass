@@ -146,6 +146,26 @@ public class BalanceDaoUtil implements BalanceDao{
 	@Override
 	public double updateFunds(double funds, int clearingMemberId) {
 		// TODO Auto-generated method stub
+		
+		String SQL_UPDATE_FUNDS = "UPDATE balances SET funds =? WHERE clearingMemberId=?";
+				try(Connection conn = DBConnection.openConnection()){
+					conn.setAutoCommit(false);
+					PreparedStatement ps = conn.prepareStatement(SQL_UPDATE_FUNDS);
+					ps.setDouble(1, funds);
+					ps.setInt(2, clearingMemberId);
+					
+					ResultSet rs = ps.executeQuery();
+					if(rs.next()) {
+						
+						conn.commit();
+						return funds;
+						
+					}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		
 		return 0;
 	}
 	
