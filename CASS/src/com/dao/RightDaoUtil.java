@@ -80,19 +80,22 @@ public class RightDaoUtil implements RightDao{
 			ps.setInt(1, clearingMemberId);
 			
 			ResultSet rs = ps.executeQuery();
-			
 			while (rs.next()) {
 				int rightsId = rs.getInt("rightId");
 				int securityId = rs.getInt("securityId");
 				String securityName = securityDao.getNameById(securityId);
 				int quantity = rs.getInt("quantity");
 				double price = rs.getDouble("price");
+				
 				Rights right = new Rights(rightsId,price,securityName,quantity);
+				
 				rights.add(right);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 		return rights;
 	}
 
