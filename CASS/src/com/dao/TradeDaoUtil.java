@@ -28,7 +28,7 @@ public class TradeDaoUtil implements TradeDao{
 			ResultSet rs = st.executeQuery(SQL_GET_TRADES);
 			while (rs.next()) {
 				int id = rs.getInt("tradeid");
-				String day = rs.getString("day");
+				String day = "MONDAY";
 				int securityId = rs.getInt("securityId");
 				String securityName = securityDao.getNameById(securityId);
 				int quantity = rs.getInt("quantity");
@@ -77,6 +77,7 @@ public class TradeDaoUtil implements TradeDao{
 				String seller = clearingMemberDao.getNameById(sellerId);
 				Trade trade = new Trade(id, day, securityName, quantity, price, buyer, seller);
 				
+				System.out.println(trade);
 				trades.add(trade);
 			}
 		} catch (SQLException e) {
@@ -88,8 +89,32 @@ public class TradeDaoUtil implements TradeDao{
 
 	@Override
 	public Trade getTrade(int tradeID) {
-		// TODO Auto-generated method stub
-		return null;
+		Trade t = null;
+		String SQL_GET_TRADE_BY_TRADEID = "SELECT * FROM trades WHERE tradeID=?" ;
+		SecurityDaoUtil securityDao = new SecurityDaoUtil();
+		ClearingMemberDaoUtil clearingMemberDao = new ClearingMemberDaoUtil();
+		try(Connection conn = DBConnection.openConnection()){
+			PreparedStatement ps = conn.prepareStatement(SQL_GET_TRADE_BY_TRADEID);
+			
+			ps.setInt(1, tradeID);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("tradeid");
+				String day ="MONDAY";
+				int securityId = rs.getInt("securityId");
+				String securityName = securityDao.getNameById(securityId);
+				int quantity = rs.getInt("quantity");
+				double price = rs.getDouble("price");
+				int buyerId = rs.getInt("buyerId");
+				int sellerId = rs.getInt("sellerId");
+				String buyer = clearingMemberDao.getNameById(buyerId);
+				String seller = clearingMemberDao.getNameById(sellerId);
+				t = new Trade(id, day, securityName, quantity, price, buyer, seller);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+			return t;
 	}
 	@Override
 	public boolean updateTrade(Trade trade) {
@@ -105,6 +130,13 @@ public class TradeDaoUtil implements TradeDao{
 	public boolean addTrade(Trade trade) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public static void main(String[] args) {
+		
+		TradeDao t = new  TradeDaoUtil();
+		List<Trade> trades  = t.getTradesByClearingMember(1);
+		System.out.println(trades);
 	}
 	
 	
