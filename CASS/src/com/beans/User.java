@@ -1,7 +1,7 @@
 package com.beans;
 
 public class User {
-	enum Role{
+	public enum Role{
 		CM,CH,ADMIN;
 	}
 	private String username;

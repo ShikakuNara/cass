@@ -47,7 +47,7 @@ public class IssueCashDividendServlet extends HttpServlet {
 		
 		System.out.println("Stocks updated");
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("corporateactions.jsp");
 		request.setAttribute("message", "Cash Dividend issued successfully!");
 		dispatcher.forward(request, response);
 		

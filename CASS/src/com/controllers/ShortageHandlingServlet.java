@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,12 +34,19 @@ public class ShortageHandlingServlet extends HttpServlet {
 		ShortageHandling shortageHandling = new  ShortageHandling();
 		BalanceDaoUtil balanceDao = new BalanceDaoUtil();
 
-		Balance memberBalance  = balanceDao.getBalanceByClearingMember(6);
+		Balance memberBalance  = balanceDao.getBalanceByClearingMember(1);
 		ObligationBalanceDaoUtil obligationDao = new ObligationBalanceDaoUtil();
-		Balance obligationBalance = obligationDao.getBalanceByClearingMember(6);
-		shortageHandling.calculateShortage(memberBalance, obligationBalance);
+		Balance obligationBalance = obligationDao.getBalanceByClearingMember(1);
+		
+		
+		System.out.println("Obligation: "+obligationBalance);
+		request.setAttribute("balance", obligationBalance);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("accountobligation.jsp");
+		dispatcher.forward(request, response);
+		
+		Balance shortBalance = shortageHandling.calculateShortage(memberBalance, obligationBalance);
 
-		Balance balance = obligationDao.getBalanceByClearingMember(6);
+		/*Balance balance = obligationDao.getBalanceByClearingMember(6);
 
 		balance.setFunds(0);
 		Map<String, Integer> security = balance.getSecurityBalance();
@@ -54,7 +62,7 @@ public class ShortageHandlingServlet extends HttpServlet {
 		balances.add(balance);
 		obligationDao.updateAllBalances(balances );
 
-		System.out.println("Settled");
+		System.out.println("Settled");*/
 
 	}
 

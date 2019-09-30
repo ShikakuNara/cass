@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 
 public class GenarateRandomTrade {
 
-    public static void main(String[] args) {
+    public void generateTrades() {
 
         ProcessBuilder processBuilder = new ProcessBuilder("C:\\Users\\Nk\\Desktop\\ButtonClick\\project\\project_run.bat");
        
@@ -31,7 +31,7 @@ public class GenarateRandomTrade {
             int exitVal = process.waitFor();
             if (exitVal == 0) {
                 System.out.println(output);
-                System.exit(0);
+               // System.exit(0);
             } else {
                 //abnormal...
             }

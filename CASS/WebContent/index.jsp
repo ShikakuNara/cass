@@ -7,17 +7,12 @@
 <title>Login</title>
 </head>
 <body>
+	<br><br>
+	<a href="login.jsp"> Login </a>
+	<br><br>
 	<a href="startClearing">Start Clearance</a>
 	<br><br>
-	<a href="IssueRights">Issue Rights</a>
-	<br><br>
-	<a href="IssueStockSplit">Issue Stock Split</a>
-	<br><br>
-	<a href="IssueStockBonus">Issue Stock Bonus</a>
-	<br><br>
-	<a href="IssueCashDividend">Issue Cash Dividend</a>
-	<br><br>
-	<a href="shortageHandling">Calculate shortage and Settle obligation </a>
+	<a href="shortageHandling">Settle obligation </a>
 	<br><br>
 	<a href="form.jsp"> Display Balance </a>
 	<br><br>

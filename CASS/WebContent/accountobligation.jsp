@@ -28,7 +28,6 @@
 		Balance balance = (Balance) request.getAttribute("balance");
 		Map<String,Integer> security = balance.getSecurityBalance();
 		List<Rights> rights = balance.getRights();
-		
 	%>
   <div class="container-scroller">
     <!-- partial -->
@@ -83,45 +82,11 @@
               <div class="card">
                 <div class="card-body">
                   <p class="card-title"><h3>FUNDS</h3></p>
-					<h1>$<fmt:formatNumber type = "number" maxFractionDigits="2" value="<%=balance.getFunds() %>"></fmt:formatNumber></h1>                  
-                                           
+					<h1>$<%= balance.getFunds() %></h1>                  
+                 
+                                    
                 </div>
                 
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-title"><h3>RIGHTS</h3></p>
-                  <div class="table-responsive">
-                    <table id="recent-purchases-listing" class="table">
-                      <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Buy/Sell</th>
-                        </tr>
-                      </thead>
-                      
-                      <% for(Rights right: rights) {%>
-                      <tbody>
-                       
-                        <tr>
-                        <% if(right.getQuantity()!=0){  %>
-                            <td><%= right.getSecurityName() %></td>
-                            <td><%= right.getQuantity() %></td>
-                            <td><%= right.getMarketPrice() %></td>
-                            <td><a href=" ">Buy/Sell</a></td>
-                <%} %>
-                        </tr>
-                        <%} %>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -133,6 +98,8 @@
       </div>
       <!-- main-panel ends -->
     </div>
+    
+    <a href=""> Settle </a>
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->

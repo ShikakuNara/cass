@@ -2,287 +2,298 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title></title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="vendors/base/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="css/stylecorporate.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="images/favicon.png" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Corporate Actions | CASS</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="vendors/base/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="images/favicon.png" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/w/bs4/dt-1.10.18/b-1.5.6/sl-1.3.0/datatables.min.css" />
+
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/w/bs4/dt-1.10.18/b-1.5.6/sl-1.3.0/datatables.min.js"></script>
 </head>
+
 <body>
-  <div class="container-scroller">
-    <!-- partial:partials/_navbar.html -->
-    
-    <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
-      <!-- partial:partials/_sidebar.html -->
-      <!-- partial -->
-      <div class="main-panel">
-        <div class="content-wrapper">                             
-          <div class="row">
-            <div class="col-md-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body dashboard-tabs p-0">
-                  <ul class="nav nav-tabs px-4 justify-content-center" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#stock-split" role="tab" aria-controls="overview" aria-selected="true">Stock split</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="sales-tab" data-toggle="tab" href="#cash-dividend" role="tab" aria-controls="sales" aria-selected="false">Cash dividend</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="purchases-tab" data-toggle="tab" href="#stock-dividend" role="tab" aria-controls="purchases" aria-selected="false">Stock Bonus</a>
-                    </li>
-					<li class="nav-item">
-                      <a class="nav-link" id="new-tab" data-toggle="tab" href="#rights" role="tab" aria-controls="purchases" aria-selected="false">Rights</a>
-                    </li>
-                  </ul>
-                  <div class="tab-content py-0 px-0">
-                    <div class="tab-pane fade show active" id="stock-split" role="tabpanel" aria-labelledby="overview-tab">
-						<div class="col-md-6 grid-margin stretch-card">
-              <div class="card" style="margin-left:50%; margin-right:50%;">
-                <div class="card-body ">
-                  <h4 class="card-title">Input details</h4>
-                 
-                <form action="IssueStockSplit" method ="get">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary dropdown-toggle"  placeholder="Security Name" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Security Name</button>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#apple">Apple</a>
-                          <a class="dropdown-item" href="#facebook">Facebook</a>
-                          <a class="dropdown-item" href="#ge">GE</a>
-                          <a class="dropdown-item" href="#linkedin">LinkedIn</a>
-                          <a class="dropdown-item" href="#walmart">Walmart</a>
-                          <div role="separator" class="dropdown-divider"></div>
-                        
+<%
+ String message = (String) request.getAttribute("message");
+%>
+    <div class="container-scroller"></div>
+    <div class="container-fluid page-body-wrapper" style="padding-top: 0%">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+
+            <div class="content-wrapper d-flex align-items-center auth" style="padding:0%">
+                <div class="row w-100">
+
+                    <div class="auth-form-light text-center py-5 px-5 px-sm-5">
+                        <div class="brand-logo" style="padding-left: 0.6em; padding-right: 0.6em">
+                            <img src="images/logo.jpg" alt="logo">
                         </div>
-                      </div>
-                      
-                          <input id="Walmart" type="text" class="form-control" aria-label="Text input with dropdown button" value="Apple" name="security">
                     </div>
-                  </div>
-                  
-                   <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"></span>
-                      </div>
-                      <input type="text" class="form-control" placeholder="" aria-label="Username" name="securityname" value="1">
-                      <input type="text" class="form-control" placeholder="Split Value" aria-label="Username" name="factor">
-                    </div>
-                  </div>
-                  
-                   <button class="btn btn-sm btn-primary" type="submit">Submit</button>
-                  </form>
-                
-                  
                 </div>
-              </div>
+
+
+                <!-- content-wrapper ends -->
             </div>
-                    </div>
-                    
-                    
-                    
-                    
-                    <div class="tab-pane fade" id="cash-dividend" role="tabpanel" aria-labelledby="cash-dividend-tab">
-						<div class="justify-content-center ">
-                      <div class="col-md-6 grid-margin stretch-card">
-              <div class="card" style="margin-left:50%; margin-right:50%;">
-                <div class="card-body">
-                  <h4 class="card-title">Input Details</h4>
-                  
-                  <form action="IssueCashDividend" method ="get">
-                  
-                   <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary dropdown-toggle"  placeholder="Security Name" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Security Name</button>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#apple">Apple</a>
-                          <a class="dropdown-item" href="#facebook">Facebook</a>
-                          <a class="dropdown-item" href="#ge">GE</a>
-                          <a class="dropdown-item" href="#linkedin">LinkedIn</a>
-                          <a class="dropdown-item" href="#walmart">Walmart</a>
-                          <div role="separator" class="dropdown-divider"></div>
-                        
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#split">
+                        <i class="mdi mdi-call-split menu-icon text-warning"></i>
+                        <span class="menu-title">Stock Split</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#bonus">
+                        <i class="mdi mdi-plus-circle-multiple-outline menu-icon text-primary"></i>
+                        <span class="menu-title">Stock Bonus</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#cash">
+                        <i class="mdi mdi-currency-usd menu-icon text-dark"></i>
+                        <span class="menu-title">Cash Dividend </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#rights">
+                        <i class="mdi mdi-cash-multiple menu-icon text-info"></i>
+                        <span class="menu-title">Rights</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">
+                        <i class="mdi mdi-logout-variant menu-icon text-danger"></i>
+                        <span class="menu-title">Logout</span>
+                    </a>
+                </li>
+            </ul>
+
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row" id="proBanner">
+                    <div class="col-md-12 grid-margin">
+                        <div class="card bg-gradient-success border-0">
+                            <div
+                                class="card-body py-3 px-4 d-flex align-items-center justify-content-between flex-wrap">
+                                <p class="mb-0 text-black font-weight-medium">${message}</p>
+                                <div class="d-flex">
+                                    <button id="bannerClose" class="btn border-0 p-0">
+                                        <i class="mdi mdi-close text-black"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                      
-                          <input id="Walmart" type="text" class="form-control" aria-label="Text input with dropdown button" value="Apple" name="security">
                     </div>
-                  </div>
-                 
-              
-                  <div class="form-group">
-                    <div class="input-group">
-                      
-                      <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" placeholder="Cash Dividend Percent" name="percent">
-                      <div class="input-group-append">
-                        <span class="input-group-text">%</span>
-                      </div>
-                    </div>
-                  </div>
-                 <button class="btn btn-sm btn-primary" type="submit">Submit</button>
-                
-                 
-                   </form>
                 </div>
-              </div>
+                <div class="row">
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card" id="split">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="mdi mdi-call-split icon-md text-warning"></i>
+                                    <h4 class="mb-0 ml-3 card-title">Stock Split</h4>
+                                </div>
+                                <form action ="IssueStockSplit" method = "get" class="forms-sample">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Security</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="security">
+                                                <option selected disabled>Please select an option</option>
+                                                <option value="Apple">Apple</option>
+                                                <option value="LinkedIn">LinkedIn</option>
+                                                <option value="Twitter">Twitter</option>
+                                                <option value="Amazon">Amazon</option>
+                                                <option value="Facebook">Facebook</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Issue</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" placeholder="1" class="form-control" name="factor" />
+                                        </div>
+                                        <label class="col-sm-4 col-form-label">shares for 1 share</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mr-2">Issue</button>
+                                    <button type="reset" class="btn btn-light">Reset</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card" id="bonus">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="mdi mdi-plus-circle-multiple-outline icon-md text-primary"></i>
+                                    <h4 class="mb-0 ml-3 card-title">Stock Bonus</h4>
+                                </div>
+                                <form action="IssueStockBonus" method="get" class="forms-sample">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Security</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="security">
+                                                <option selected disabled>Please select an option</option>
+                                                <option value="Apple">Apple</option>
+                                                <option value="LinkedIn">LinkedIn</option>
+                                                <option value="Twitter">Twitter</option>
+                                                <option value="Amazon">Amazon</option>
+                                                <option value="Facebook">Facebook</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Issue</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" placeholder="1" class="form-control" name="factor"/>
+                                        </div>
+                                        <label class="col-sm-4 col-form-label">shares for 1 share</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mr-2">Issue</button>
+                                    <button type="reset" class="btn btn-light">Reset</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card" id="cash">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="mdi mdi-currency-usd icon-md text-dark"></i>
+                                    <h4 class="mb-0 ml-3 card-title">Cash Dividend</h4>
+                                </div>
+                                <form action="IssueCashDividend" method="get" class="forms-sample">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Security</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="security"
+                                                onchange="checkvalue(this.value)">
+                                                <option selected disabled>Please select an option</option>
+                                                <option value="Apple">Apple</option>
+                                                <option value="LinkedIn">LinkedIn</option>
+                                                <option value="Twitter">Twitter</option>
+                                                <option value="Amazon">Amazon</option>
+                                                <option value="Facebook">Facebook</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Facevalue</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" id="facevalue" class="form-control" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">% Value</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="percent"/>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mr-2">Issue</button>
+                                    <button type="reset" class="btn btn-light">Reset</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card" id="rights">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="mdi mdi-cash-multiple icon-md text-info"></i>
+                                    <h4 class="mb-0 ml-3 card-title">Rights
+                                    </h4>
+                                </div>
+                                <form action="IssueRights" method="get" class="forms-sample">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Security</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" name="security">
+                                                <option selected disabled>Please select an option</option>
+                                                <option value="Apple">Apple</option>
+                                                <option value="LinkedIn">LinkedIn</option>
+                                                <option value="Twitter">Twitter</option>
+                                                <option value="Amazon">Amazon</option>
+                                                <option value="Facebook">Facebook</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Issue Value</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="issueValue" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label">Issue</label>
+                                        <div class="col-sm-6">
+                                            <input type="number" placeholder="1" class="form-control" name="factor" />
+                                        </div>
+                                        <label class="col-sm-4 col-form-label">rights for 1 share</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mr-2">Issue</button>
+                                    <button type="reset" class="btn btn-light">Reset</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-					  </div>
-                    </div>
-                    
-                   
-                    
-                    
-                    <div class="tab-pane fade" id="stock-dividend" role="tabpanel" aria-labelledby="stock-dividend-tab">
-                     <div class="col-md-6 grid-margin stretch-card">
-              <div class="card" style="margin-left:50%; margin-right:50%;">
-                <div class="card-body">
-                  <h4 class="card-title">Input Details</h4>
-  
-                 <form action="IssueStockBonus" method ="get">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary dropdown-toggle"  placeholder="Security Name" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Security Name</button>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#apple">Apple</a>
-                          <a class="dropdown-item" href="#facebook">Facebook</a>
-                          <a class="dropdown-item" href="#ge">GE</a>
-                          <a class="dropdown-item" href="#linkedin">LinkedIn</a>
-                          <a class="dropdown-item" href="#walmart">Walmart</a>
-                          <div role="separator" class="dropdown-divider"></div>
-                        
-                        </div>
-                      </div>
-                      
-                          <input id="Walmart" type="text" class="form-control" aria-label="Text input with dropdown button" value="Apple" name="security">
-                    </div>
-                  </div>
-                  
-                   <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"></span>
-                      </div>
-                      <input type="text" class="form-control" placeholder="" aria-label="Username" name="securityname" value="1">
-                      <input type="text" class="form-control" placeholder="Bonus factor" aria-label="Username" name="factor">
-                    </div>
-                  </div>
-                  
-                   <button class="btn btn-sm btn-primary" type="submit">Submit</button>
-                  </form>
-                    </div>
-                  </div>
-                </div>
-                    </div>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-					<div class="tab-pane fade" id="rights" role="tabpanel" aria-labelledby="rights-tab">
-                      <div class="col-md-6 grid-margin stretch-card">
-              <div class="card" style="margin-left:50%; margin-right:50%;">
-                <div class="card-body" >
-                  <h4 class="card-title">Input Details</h4>
-				 
-				  <form action="IssueRights" method ="get">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <button class="btn btn-sm btn-outline-primary dropdown-toggle"  placeholder="Security Name" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Security Name</button>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#apple">Apple</a>
-                          <a class="dropdown-item" href="#facebook">Facebook</a>
-                          <a class="dropdown-item" href="#ge">GE</a>
-                          <a class="dropdown-item" href="#linkedin">LinkedIn</a>
-                          <a class="dropdown-item" href="#walmart">Walmart</a>
-                          <div role="separator" class="dropdown-divider"></div>
-                        
-                        </div>
-                      </div>
-                      
-                          <input id="Walmart" type="text" class="form-control" aria-label="Text input with dropdown button" value="Apple" name="security">
-                    </div>
-                  </div>
-                                    <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text bg-primary text-white">$</span>
-                      </div>
-                      <input type="text" class="form-control" placeholder="Issue price" aria-label="Amount (to the nearest dollar)" name="price">
-                      
-                    </div>
-                  </div>
-                  
-                   <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"></span>
-                      </div>
-                      <input type="text" class="form-control" placeholder="" aria-label="Username" name="securityname" value="1">
-                      <input type="text" class="form-control" placeholder="Rights factor" aria-label="Username" name="factor">
-                    </div>
-                  </div>
-                  
-                   <button class="btn btn-sm btn-primary" type="submit">Submit</button>
-                  </form>
-                  
-                 
-                      </div>
-                    </div>
-                  </div>
-                </div>
-             
+        </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
-        
         <!-- partial -->
-      </div>
-      <!-- main-panel ends -->
+    </div>
+    <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
+    </div>
+    <!-- container-scroller -->
 
-  <!-- plugins:js -->
-  <script src="vendors/base/vendor.bundle.base.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <script src="vendors/chart.js/Chart.min.js"></script>
-  <script src="vendors/datatables.net/jquery.dataTables.js"></script>
-  <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
-  <script src="js/off-canvas.js"></script>
-  <script src="js/hoverable-collapse.js"></script>
-  <script src="js/template.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  <script src="js/dashboard.js"></script>
-  <script src="js/data-table.js"></script>
-  <script src="js/jquery.dataTables.js"></script>
-  <script src="js/dataTables.bootstrap4.js"></script>
-  <!-- End custom js for this page-->
+
+    <!-- plugins:js -->
+    <script src="vendors/base/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <script src="vendors/chart.js/Chart.min.js"></script>
+    <script src="vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="js/off-canvas.js"></script>
+    <script src="js/hoverable-collapse.js"></script>
+    <script src="js/template.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page-->
+    <script>
+        function checkvalue(val) {
+            if (val === "Apple")
+                document.getElementById('facevalue').value = '$123';
+            else if (val === "Twitter")
+                document.getElementById('facevalue').value = '$11';
+            else if (val === "Facebook")
+                document.getElementById('facevalue').value = '$250';
+            else if (val === "LinkedIn")
+                document.getElementById('facevalue').value = '$345';
+            else if (val === "Amazon")
+                document.getElementById('facevalue').value = '$100';
+
+        }
+    </script>
+    <!-- End custom js for this page-->
 </body>
 
 </html>
-

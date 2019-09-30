@@ -33,7 +33,7 @@ public class IssueStockBonusServlet extends HttpServlet {
 		List<Balance> balances = action.issueStockBonus(factor, memberBalance ,security);
 		
 		balanceDao.updateAllBalancesBySecurity(balances,security);
-RequestDispatcher dispatcher=request.getRequestDispatcher("");
+RequestDispatcher dispatcher=request.getRequestDispatcher("corporateactions.jsp");
 request.setAttribute("message","Stock Bonus Issued Sucessfully");
 dispatcher.forward(request,response);
 		System.out.println("Stocks updated");

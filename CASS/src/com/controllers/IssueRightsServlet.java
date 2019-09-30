@@ -27,7 +27,7 @@ public class IssueRightsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		double factor = Double.parseDouble(request.getParameter("factor"));
-		double price = Double.parseDouble(request.getParameter("price"));
+		double price = Double.parseDouble(request.getParameter("issueValue"));
 		String securityName = request.getParameter("security");
 		
 		System.out.println("Rights");
@@ -53,7 +53,7 @@ public class IssueRightsServlet extends HttpServlet {
 		}	
 		System.out.println("Rights updated");
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("corporateactions.jsp");
 		request.setAttribute("message", securityName + " Rights issued successfully!");
 		dispatcher.forward(request, response);
 	}

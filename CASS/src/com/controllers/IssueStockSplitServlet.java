@@ -38,8 +38,8 @@ public class IssueStockSplitServlet extends HttpServlet {
 		List<Balance> balances = action.issueStockSplit(factor, memberBalance ,security);
 		System.out.println(balances);
 		balanceDao.updateAllBalancesBySecurity(balances,security);
-		RequestDispatcher dispatcher=request.getRequestDispatcher("");
-		request.setAttribute("message","Stock Split action sucessfully updated");
+		RequestDispatcher dispatcher=request.getRequestDispatcher("corporateactions.jsp");
+		request.setAttribute("message","Stock Split sucessful");
 		dispatcher.forward(request, response);
 		System.out.println("Stocks updated");
 	
