@@ -95,6 +95,30 @@ public class ClearingMemberDaoUtil implements ClearingMemberDao{
 	
 		
 	}
+	@Override
+	public int getReportGenerated(){
+	String SQL_GET_CM = "SELECT * FROM clearingmembers";
+	int count=0;
+	boolean isSubmitted=false;
+		try(Connection conn = DBConnection.openConnection()){
+			Statement st = conn.createStatement();
+			ResultSet rs = st.executeQuery(SQL_GET_CM);
+			while(rs.next())
+			{
+				 isSubmitted=rs.getBoolean("isSubmitted");
+				 if(isSubmitted)
+				 {
+					 count++;
+				 }
+			}
+			return count;
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		return count;
+	}
+	
 
 	@Override
 	public boolean updateIsSubmitted(ClearingMember clearingMember){
@@ -122,6 +146,7 @@ public class ClearingMemberDaoUtil implements ClearingMemberDao{
 		
 		return false;
 	}
+	
 
 	@Override
 	public boolean updateIsReportGenerated() {

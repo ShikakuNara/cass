@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<%@page import="com.beans.Balance"%>
-<%@page import="com.beans.Trade"%>
-<%@page import="java.util.List"%>
-<%@ taglib prefix ="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 
 <head>
@@ -29,9 +25,6 @@
 </head>
 
 <body>
-<% List<Trade> trades = (List<Trade>) request.getAttribute("trades"); %>; 
-<% String name = (String)request.getAttribute("name");
-%>
     <div class="container-scroller"></div>
     <div class="container-fluid page-body-wrapper" style="padding-top: 0%">
         <!-- partial:partials/_sidebar.html -->
@@ -52,31 +45,31 @@
             </div>
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="clearingmember.jsp">
+                    <a class="nav-link" href="clearingmember.html">
                         <i class="mdi mdi-database menu-icon text-primary"></i>
                         <span class="menu-title">Trade Data</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ObligationClearingMember">
+                    <a class="nav-link" href="oblreport.html">
                         <i class="mdi mdi-elevator menu-icon text-warning"></i>
                         <span class="menu-title">Obligation Report</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="settlement">
+                    <a class="nav-link" href="settlreport.html">
                         <i class="mdi mdi-file-check menu-icon text-info"></i>
                         <span class="menu-title">Settlement Report </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="recon">
+                    <a class="nav-link" href="reconstatement.html">
                         <i class="mdi mdi-chart-bar menu-icon text-success"></i>
                         <span class="menu-title">Reconciliation Statement </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="displayBalance">
+                    <a class="nav-link" href="account.html">
                         <i class="mdi mdi-account menu-icon text-dark"></i>
                         <span class="menu-title">Account </span>
                     </a>
@@ -97,58 +90,12 @@
                     <div class="col-md-12 stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row ">
-                                    <div class="col-md-12 grid-margin ">
-                                        <div class="align-items-center flex-wrap">
-                                            <div class="mr-md-3 mr-xl-5 text-center">
-                                                <h2>Trade Data</h2>
-                                                <p class="mb-md-0">Details of all your transactions today.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table-responsive">
-                                    <table id="recent-trades-listing" class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Trade ID</th>
-                                                <th>Security Name</th>
-                                                <th>Quantity</th>
-                                                <th>Price</th>
-                                                <th>Buy/Sell</th>
-                                             
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <% for(Trade trade: trades) { %>
-                                            <tr>
-                                           		 <td><%=trade.getTradeId() %></td>
-                                                <td class="py-1">
-                                                     <i class="mdi mdi-apple mr-3 icon-lg text-dark"></i>
-                                                </td>
-                                                
-                                                <td><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=trade.getQuantity() %>"></fmt:formatNumber></td>
-                                                <td><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=trade.getPrice() %>"></fmt:formatNumber></td>
-                <%if(trade.getBuyer().equals(name)){ %>
-                                                <td><a href=""><label class="text-success">Buy</label></a></td>
-                                                <%} else {%>
-                                                <td><a href=""><label class="text-danger">Sell</label></a></td>
-                                                <%} %>
-                                            </tr>
-                                            <%} %>
-                                         
-                                        </tbody>
-                                    </table>
-                                </div><br><br>
                                 <div class="row">
-                                    <div class="col-4"></div>
-                                    <div class="col-4"><a href="updateSubmit"><button 
-                                            class="btn btn-block btn-primary mt-2 mt-xl-0 btn-icon-text"><i
-                                                class="mdi mdi-elevator btn-icon-prepend"></i> Submit to
-                                            Clearing House</button></a></div>
-                                    <div class="col-4"></div>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-8"><img src="images/loading.gif" alt="" height="580px"></div>
+                                    <div class="col-sm-2"></div>
                                 </div>
-
+                                
                             </div>
                         </div>
                     </div>
@@ -179,18 +126,6 @@
     <script src="js/template.js"></script>
     <!-- endinject -->
     <!-- Custom js for this page-->
-    <script>
-        $(document).ready(function () {
-            var table = $('#recent-trades-listing').DataTable({
-
-                "lengthChange": false,
-                "pageLength": 7,
-                "select": true,
-                "ordering": true,
-
-            });
-        }); 
-    </script>
     <!-- End custom js for this page-->
 </body>
 

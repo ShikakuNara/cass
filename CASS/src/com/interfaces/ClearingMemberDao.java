@@ -10,4 +10,5 @@ public interface ClearingMemberDao {
 	public int getIdByName(String clearingMemberName);
 	public boolean updateIsSubmitted(ClearingMember clearingMember);
 	public boolean updateIsReportGenerated();
+	public int getReportGenerated();
 }

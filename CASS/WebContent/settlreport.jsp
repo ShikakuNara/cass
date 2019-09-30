@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<%@page import="com.dao.SecurityDaoUtil"%>
+<%@page import="java.util.Map"%>
+<%@page import="com.beans.Balance"%>
 <html lang="en">
 
 <head>
@@ -25,6 +28,14 @@
 </head>
 
 <body>
+<%
+Balance balance = (Balance)request.getAttribute("balance");
+Map<String,Integer> security = balance.getSecurityBalance();
+Balance shortBal = (Balance)request.getAttribute("short");
+Map<String,Integer> shortsecurity = shortBal.getSecurityBalance();
+Balance obligation = (Balance)request.getAttribute("obligation");
+Map<String,Integer> oblisecurity = obligation.getSecurityBalance();
+%>
     <div class="container-scroller"></div>
     <div class="container-fluid page-body-wrapper" style="padding-top: 0%">
         <!-- partial:partials/_sidebar.html -->
@@ -108,50 +119,83 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        
                                             <tr>
                                                 <td>Initial Balance</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
+                                                
+                                                 <% for(Map.Entry<String,Integer> entry : security.entrySet()) {
+                                        	int quantity = entry.getValue();
+                                        %>
+                                                <td><%= quantity %></td>
+                                            
+                                                <% }%>
+                                                
+                                                <td><%= balance.getFunds()%> </td>
                                             </tr>
+                                            
                                             <tr>
                                                 <td>Obligations</td>
-                                                <td class="text-success"> 6234 <i class="mdi mdi-arrow-up"></i></td>
-                                                <td class="text-success"> 6234 <i class="mdi mdi-arrow-up"></i></td>
-                                                <td class="text-success"> 6234 <i class="mdi mdi-arrow-up"></i></td>
-                                                <td class="text-success"> 6234 <i class="mdi mdi-arrow-up"></i></td>
-                                                <td class="text-success"> 6234 <i class="mdi mdi-arrow-up"></i></td>
-                                                <td class="text-success"> 6234 <i class="mdi mdi-arrow-up"></i></td>
+                                                   <% for(Map.Entry<String,Integer> entry : oblisecurity.entrySet()) {
+                                        	int quantity = entry.getValue();
+                                        %>
+                                                <td><%= quantity %></td>
+                                            
+                                                <% }%>
+                                                 <td><%= obligation.getFunds()%> </td>
                                             </tr>
                                             <tr>
                                                 <td>Shortages</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
+                                                   <% for(Map.Entry<String,Integer> entry : security.entrySet()) {
+                                                	   int quantity = 0;
+                                                	   if(shortsecurity.containsKey(entry.getKey()))
+                                        	                quantity = shortsecurity.get(entry.getKey());
+                                        %>
+                                                <td><%= quantity %></td>
+                                            
+                                                <% }%>
+                                                
+                                                <td> <%= shortBal.getFunds() %> </td>
                                             </tr>
                                             <tr>
                                                 <td>Shortage Cost</td>
-                                                <td>$110</td>
-                                                <td>$110</td>
-                                                <td>$110</td>
-                                                <td>$110</td>
-                                                <td>1</td>
-                                                <td>$110</td>
+                                                   <%  {double total = 0;
+                                                   for(Map.Entry<String,Integer> entry : security.entrySet()) {
+                                                	   int quantity = 0;
+                                                	   double secInterest = 0;
+                                                	  
+                                                	   if(shortsecurity.containsKey(entry.getKey())){
+                                                		   
+				                                        	quantity = shortsecurity.get(entry.getKey());
+				                                        	SecurityDaoUtil securitydaoutil = new SecurityDaoUtil();
+				                                            String securityName = entry.getKey();
+				                        
+				                                        	double IR = securitydaoutil.getSecurityByName(securityName).getInterestRate();
+				                            				double marketPrice = securitydaoutil.getSecurityByName(securityName).getMarketPrice();
+				                            				double shortSecFund = quantity * marketPrice;
+				                            				secInterest = (shortSecFund * (IR / 100f) * (2f / 365f));
+				                            				total = total+secInterest;
+                                                	   }
+                                        %>
+                                                <td><%= secInterest %></td>
+                                            
+                                              <%} %>
+                                                
+                                                 <td> <%=total %> </td>
+                                                 
+                                                   <% }%>
+                                                
                                             </tr>
                                             <tr>
                                                 <td>Final Balance</td>
-                                                <td>0</td>
-                                                <td>0</td>
-                                                <td>10</td>
-                                                <td>0</td>
-                                                <td>1</td>
-                                                <td>0</td>
+                                                   <% for(Map.Entry<String,Integer> entry : security.entrySet()) {
+                                                	   int obli = oblisecurity.get(entry.getKey());
+                                        	int quantity = entry.getValue() - obli;
+                                        %>
+                                                <td><%= quantity %></td>
+                                            
+                                                <% }%>
+                                                
+                                                <td><%= balance.getFunds() - obligation.getFunds()%> </td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -52,12 +52,11 @@ public class ShortageHandling {
 			}
 				
 		}
-		
 		shortageBalance.setSecurityBalance(shortSecurity);
 		
 		System.out.println(shortageBalance);
 		
-		settleShortage(shortageBalance, memberBalance);
+		//settleShortage(shortageBalance, memberBalance);
 		
 		return shortageBalance;
 	}
@@ -105,7 +104,6 @@ public class ShortageHandling {
 		balances.add(memberBalance);
 		balanceDao.updateFundBalance(balances);
 		balanceDao.updateSecurity(memberBalance);
-		
 
 	}
 }

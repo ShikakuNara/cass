@@ -24,8 +24,8 @@ public class DisplayBalanceServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int id = Integer.parseInt(request.getParameter("id"));
-		
+		//int id = Integer.parseInt(request.getParameter("id"));
+		int id=1;
 		BalanceDaoUtil balanceDao = new BalanceDaoUtil();
 		Balance balance = balanceDao.getBalanceByClearingMember(id);
 		

@@ -1,7 +1,6 @@
 package com.controllers;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,32 +15,36 @@ import com.dao.BalanceDaoUtil;
 import com.dao.ObligationBalanceDaoUtil;
 
 /**
- * Servlet implementation class ObligationClearingMember
+ * Servlet implementation class ReconcillationServlet
  */
-@WebServlet("/ObligationClearingMember")
-public class ObligationClearingMember extends HttpServlet {
+@WebServlet("/recon")
+public class ReconcillationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-   
+  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ShortageHandling shortageHandling = new  ShortageHandling();
 		BalanceDaoUtil balanceDao = new BalanceDaoUtil();
 		ObligationBalanceDaoUtil obligationDao = new ObligationBalanceDaoUtil();
-		Balance memberBalance  = balanceDao.getBalanceByClearingMember(1);
-		Balance obligationBalance = obligationDao.getBalanceByClearingMember(1);
+		Balance memberBalance  = balanceDao.getBalanceByClearingMember(6);
+		Balance obligationBalance = obligationDao.getBalanceByClearingMember(6);
 
 		Balance shortBalance = shortageHandling.calculateShortage(memberBalance, obligationBalance);
 		
-		System.out.println("Obligation:" +obligationBalance);
-		System.out.println("Short: "+shortBalance);
-		
-		request.setAttribute("obligations", obligationBalance);
+		request.setAttribute("balance", memberBalance);
 		request.setAttribute("short", shortBalance);
+		request.setAttribute("obligation", obligationBalance);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("oblreport.jsp");
+		System.out.println("Balance: "+memberBalance);
+		System.out.println("Short: "+shortBalance);
+		System.out.println("Obligation: "+obligationBalance);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("reconstatement.jsp");
 		dispatcher.forward(request, response);	
+		
+		
+		
+
 	}
 
-	
 }

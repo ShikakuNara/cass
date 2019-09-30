@@ -146,7 +146,7 @@ Map<String,Integer> ShortSecurity = shortBalance.getSecurityBalance();
                                                 <div class="d-flex flex-column justify-content-around">
                                                     <small class="mb-1 text-danger">Send <i
                                                             class="mdi mdi-arrow-down"></i></small>
-                                                    <h5 class="mr-2 mb-0"><%=obligation.getFunds() %></h5>
+                                                    <h5 class="mr-2 mb-0"><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=obligation.getFunds() %>"></fmt:formatNumber></h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -205,7 +205,7 @@ Map<String,Integer> ShortSecurity = shortBalance.getSecurityBalance();
                                         </table>
                                 </div><br><br>
                                 <div class="row"><div class="col-4"></div>
-                                <div class="col-4"><button class="btn btn-block btn-primary mt-2 mt-xl-0 btn-icon-text"> Borrow and Settle</button></div>
+                                <div class="col-4"><a href="borrowsettle"><button class="btn btn-block btn-primary mt-2 mt-xl-0 btn-icon-text"> Borrow and Settle</button></a></div>
                                 <div class="col-4"></div></div>
                             </div>
                             <!-- content-wrapper ends -->
