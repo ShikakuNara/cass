@@ -10,7 +10,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Obligation Report | CASS</title>
+    <title>Account | CASS</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="vendors/base/vendor.bundle.base.css">
@@ -83,7 +83,7 @@ List<Rights> right=balance.getRights();%>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html">
+                    <a class="nav-link" href="logout">
                         <i class="mdi mdi-logout-variant menu-icon text-danger"></i>
                         <span class="menu-title">Logout</span>
                     </a>

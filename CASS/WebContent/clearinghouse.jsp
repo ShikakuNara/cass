@@ -21,6 +21,115 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/w/bs4/dt-1.10.18/b-1.5.6/sl-1.3.0/datatables.min.css"/>
  
 <script type="text/javascript" src="https://cdn.datatables.net/w/bs4/dt-1.10.18/b-1.5.6/sl-1.3.0/datatables.min.js"></script>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+ <script>
+ var tradeId;
+ var table;
+ var edit=0;
+ var makeTable =  function () {
+     table = $('#recent-trades-listing').DataTable({
+       
+       "lengthChange": false,
+       "pageLength":7,
+       "select": true,
+       "ordering": true,
+       
+     }); } 
+$(document).ready( function() {       
+$.ajax({ 
+ type: 'GET', 
+ url: 'showAllTrades',  
+ dataType: 'json',
+	success: function (data) {
+ console.log("plkjh");
+ 	makeTable();
+ 	tradeId=0;
+ 	table.rows().remove().draw();
+     $.each(data, function(index,element) {
+    	var icon = "<i class='mdi mdi-";
+    	var icon_end = " icon-md'></i>";
+     	table.row.add([element.tradeId,icon.concat(element.securityName.toLowerCase(),icon_end),element.quantity,element.price,element.buyer,element.seller,"<button id='editTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal' data-target='#exampleModal'>Edit</button> <button id='removeTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal'>Remove</button>"])
+             
+     });
+     table.draw();
+    trnd;
+     
+ }
+}); 
+});
+
+
+$(document).on("click", "#insertTrades", function() {   
+alert(tradeId);
+if(tradeId==0)
+{	
+$.ajax({ 
+ type: 'GET', 
+ url: 'addTrade', 
+ data: {tid:"0",securityName: security.value,quantity:quantity.value,price:price.value,buyer:buyer.value,seller:seller.value }, 
+ dataType: 'json',
+ success: function (data) { 
+ 	console.log(data)
+ 	
+ 	table.row.add([data.tradeId,data.securityName,data.quantity,data.price,data.buyer,data.seller,"<button id='editTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal' data-target='#exampleModal'>Edit</button> <button id='removeTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal'>Remove</button>"])
+ 	table.draw();
+ 	
+ }
+}); 
+}
+
+else
+{	
+	$.ajax({ 
+	    type: 'GET', 
+	    url: 'addTrade', 
+	    data: {tid:tradeId,securityName: security.value,quantity:quantity.value,price:price.value,buyer:buyer.value,seller:seller.value }, 
+	    dataType: 'json',
+	    success: function (data) { 
+	    	console.log(data)
+	    	
+	    	table.row.add([data.tradeId,data.securityName,data.quantity,data.price,data.buyer,data.seller,"<button id='editTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal' data-target='#exampleModal'>Edit</button> <button id='removeTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal'>Remove</button>"])
+	    	table.draw();
+     	
+	    }
+	}); 
+}
+tradeId=0;
+});
+
+
+
+$(document).on("click", "#removeTrade", function() {
+if(edit==0)
+	{
+	var data = table.row( $(this).parents('tr') ).data();
+	tradeId=data[0];
+	}
+   alert(tradeId);
+$.ajax({ 
+ type: 'GET', 
+ url: 'deleteTrade', 
+ data: {tid: data[0]}, 
+ dataType: 'json',
+ success: function () { 
+    table.row(this).remove();
+    table.draw();
+ }
+}); 
+});
+
+
+$(document).on("click", "#editTrade", function() {  
+	var data = table.row( $(this).parents('tr') ).data();
+	tradeId=data[0];
+	edit=1;
+$("#removeTrade")[0].click();
+$("#outAdd")[0].click();
+//tradeId=0;
+});
+</script>
+<script type="text/javascript" src="https://cdn.datatables.net/w/bs4/dt-1.10.18/b-1.5.6/sl-1.3.0/datatables.min.js"></script>
 </head>
 <body>
 <% String message = (String)request.getAttribute("message"); 
@@ -111,123 +220,31 @@ String status = (String)request.getAttribute("status");
                           <div class="align-items-center flex-wrap">
                               <div class="mr-md-3 mr-xl-5 text-center">
                                 <h2>Trade Data</h2>
-                                <p class="mb-md-0">Details of all transactions today.</p>
+                                <p class="mb-md-0">Details of all transactions today.</p><br>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal" id="outAdd">Add Trade</button>
                               </div>
+                              
                           </div>
+                          
                         </div>
+                        
                       </div>
                   <div class="table-responsive">
                     <table id="recent-trades-listing" class="table table-hover">
-                      <thead>
+                       <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Status report</th>
-                            <th>Office</th>
+                            <th>Trade Id</th>
+                            <th>Security</th>
+                            <th>Quantity</th>
                             <th>Price</th>
-                            <th>Percentage</th>
-                            <th>Date</th>
-                            <th>Gross amount</th>
-                            <th>Action</th>
+                            <th>Buyer</th>
+                            <th>Seller</th>
+                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                            <td class="py-1">
-                                <img src="images/faces/face4.jpg" alt="image"/>
-                            </td>
-                            <td>Levelled up</td>
-                            <td>Catalinaborough</td>
-                            <td>$790</td>
-                            <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i></td>
-                            <td>06 Jan 2018</td>
-                            <td>$2274253</td>
-                            <td><label class="badge badge-danger">Sell</label></td>
-                        </tr>
-                        <tr>
-                            <td class="py-1">
-                                <img src="images/faces/face3.jpg" alt="image"/>
-                            </td>
-                            <td>Ui design completed</td>
-                            <td>East Mayra</td>
-                            <td>$23230</td>
-                            <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i></td>
-                            <td>18 Jul 2018</td>
-                            <td>$83127</td>
-                            <td><label class="badge badge-success">Buy</label></td>
-                        </tr>
-                        <tr>
-                            <td class="py-1">
-                                <img src="images/faces/face1.jpg" alt="image"/>
-                            </td>
-                            <td>support</td>
-                            <td>Makennaton</td>
-                            <td>$939</td>
-                            <td class="text-danger"> 28.76% <i class="mdi mdi-arrow-down"></i></td>
-                            <td>16 Jul 2018</td>
-                            <td>$29177</td>
-                            <td><label class="badge badge-success">Buy</label></td>
-                        </tr>
-                        <tr>
-                            <td class="py-1">
-                                <img src="images/faces/face2.jpg" alt="image"/>
-                            </td>
-                            <td>support</td>
-                            <td>Agustinaborough</td>
-                            <td>$30</td>
-                            <td class="text-primary"> 28.76% <i class="mdi mdi-arrow-up"></i></td>
-                            <td>30 Apr 2018</td>
-                            <td>$44617</td>
-                            <td><label class="badge badge-success">Buy</label></td>
-                        </tr>
-                        <tr>
-                            <td class="py-1">
-                                <img src="images/faces/face3.jpg" alt="image"/>
-                            </td>
-                            <td>Ui design not completed</td>
-                            <td>Lake Sandrafort</td>
-                            <td>$571</td>
-                            <td class="text-primary"> 28.76% <i class="mdi mdi-arrow-up"></i></td>
-                            <td>25 Jun 2018</td>
-                            <td>$78952</td>
-                            <td><label class="badge badge-danger">Sell</label></td>
-                        </tr>
-                        <tr>
-                            <td class="py-1">
-                                <img src="images/faces/face4.jpg" alt="image"/>
-                            </td>
-                            <td>Ui design completed</td>
-                            <td>Cassinbury</td>
-                            <td>$36</td>
-                            <td class="text-primary"> 28.76% <i class="mdi mdi-arrow-up"></i></td>
-                            <td>05 Nov 2018</td>
-                            <td>$36422</td>
-                            <td><label class="badge badge-danger">Sell</label></td>
-                          </tr>
-                        <tr>
-                            <td class="py-1">
-                                <img src="images/faces/face2.jpg" alt="image"/>
-                            </td>
-                            <td>New project</td>
-                            <td>Cletaborough</td>
-                            <td>$314</td>
-                            <td class="text-primary"> 28.76% <i class="mdi mdi-arrow-up"></i></td>
-                            <td>12 Jul 2018</td>
-                            <td>$34167</td>
-                            <td><label class="badge badge-danger">Sell</label></td>
-                          </tr>
-                        <tr>
-                            <td class="py-1">
-                                <img src="images/faces/face1.jpg" alt="image"/>
-                            </td>
-                            <td>Levelled up</td>
-                            <td>West Fidelmouth</td>
-                            <td>$484</td>
-                            <td class="text-primary"> 28.76% <i class="mdi mdi-arrow-up"></i></td>
-                            <td>08 Sep 2018</td>
-                            <td>$50862</td>
-                            <td><label class="badge badge-danger">Sell</label></td>
-                          </tr>
-                      </tbody>
+                      
+                       </tbody>
                     </table>
                   </div><br><br>
                   <div class="row"><div class="col-4"></div>
@@ -249,7 +266,99 @@ String status = (String)request.getAttribute("status");
   </div>
   <!-- container-scroller -->
 
-  
+  <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ADD TRADE</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+			<div class="card-body">
+                  <h4 class="card-title"></h4>
+                  <form class="forms-sample">
+                    <div class="form-group">
+					<div class="row">
+						<div class="col-6">
+						<label for="exampleInputUsername1">Security</label>
+						
+						<select class="form-control" id="security">
+                              <option>LinkedIn</option>
+                              <option>Apple</option>
+                              <option>Walmart</option>
+                              <option>Facebook</option>
+							  <option>GE</option>
+                            </select>
+						
+                      
+						</div>
+						<div class="col-6">
+						<label for="exampleInputEmail1"> Quantity</label>
+                      <input type="number" class="form-control" id="quantity" placeholder="Quantity">
+						</div>
+						
+					</div>
+					
+					
+					
+					<div class="row">
+						<div class="col-6">
+						 <label for="exampleInputPassword1">Price</label>
+                      <input type="number" class="form-control" id="price" placeholder="Price">
+						</div>
+						<div class="col-6">
+						<label for="exampleInputConfirmPassword1">Buyer Clearing member</label>
+						<select class="form-control" id="buyer">
+                              <option>JP Morgan</option>
+                              <option>Citi</option>
+                              <option>GoldmanSachs</option>
+                              <option>DeutscheBank</option>
+                              <option>Barclays</option>
+                              <option>CreditSuisse</option>
+                            </select>
+                      
+						</div>
+						
+					</div>
+					
+					
+					<div class="row">
+						<div class="col-6">
+						 <label for="exampleInputPassword1">Seller Clearing Member</label>
+						 <select class="form-control" id="seller">
+                              <option>JP Morgan</option>
+                              <option>Citi</option>
+                              <option>GoldmanSachs</option>
+                              <option>DeutscheBank</option>
+                              <option>Barclays</option>
+                              <option>CreditSuisse</option>
+                            </select>
+                     
+						</div>
+						
+						
+					</div>
+                  </form>
+                </div>
+              </div>
+      </div>
+  <div class="modal-footer">
+        <!--button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button-->
+		
+		<div>
+			<div >
+				<button id="insertTrades" class="btn btn-primary mr-2 mt-8" data-dismiss="modal">Okay</button>
+				<!--button class="btn btn-light mt-8 form-control" >Cancel</button-->
+			</div>
+		</div>
+  </div>
   <!-- plugins:js -->
   <script src="vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -262,26 +371,19 @@ String status = (String)request.getAttribute("status");
   <script src="js/off-canvas.js"></script>
   <script src="js/hoverable-collapse.js"></script>
   <script src="js/template.js"></script>
+  <script>
+        var trnd = function () {
+            $('.mdi-apple').addClass("text-dark");
+            $('.mdi-facebook').addClass("text-primary");
+            $('.mdi-linkedin').addClass("text-info");
+            $('.mdi-amazon').addClass("text-warning");
+            $('.mdi-twitter').addClass("text-primary");
+        });
+    </script>
   <!-- endinject -->
   <!-- Custom js for this page-->
-  <script>
-  $(document).ready( function () {
-    var table = $('#recent-trades-listing').DataTable({
-      
-      "lengthChange": false,
-      "pageLength":7,
-      "select": true,
-      "ordering": true,
-      
-    }); }); 
-  </script>
   <!-- End custom js for this page-->
 </body>
 
 </html>
-<!-- 
-"columnDefs": [{
-  "targets": -1,       // -1 = last column
-  "data": null,        // no data for this column, instead we will show default content, described in 'defaultContent'
-  "defaultContent": "<div class='btn-group' role='group' aria-label='Basic example'><button type='button' class='btn btn-lg btn-outline-primary'><i class='mdi mdi-pencil'></i></button><button type='button' class='btn btn-lg btn-outline-primary'><i class='mdi mdi-delete'></i></button></div>"
-}], -->
+

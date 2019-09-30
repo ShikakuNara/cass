@@ -9,6 +9,6 @@ public interface TradeDao {
 	public List<Trade> getTradesByClearingMember(int clearingMemberID);
 	public Trade getTrade(int tradeID);	
 	public boolean updateTrade(Trade trade);
-	public boolean deleteTrade(Trade trade);
-	public boolean addTrade(Trade trade);
+	public boolean deleteTrade(int tradeId);
+	public int addTrade(Trade trade);
 }

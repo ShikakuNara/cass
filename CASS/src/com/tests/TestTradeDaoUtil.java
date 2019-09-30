@@ -60,21 +60,21 @@ class TestTradeDaoUtil {
 		
 	}
 
-	@Test
-	final void testDeleteTrade() {
-		TradeDaoUtil tdu = new TradeDaoUtil();
-		Trade trade = tdu.getTrade(3);
-		boolean actual = tdu.deleteTrade(trade);
-		assertEquals(true, actual);
-	}
-
-	@Test
-	final void testAddTrade() {
-		TradeDaoUtil tdu = new TradeDaoUtil();
-		Trade trade = new Trade(121, "Monday", "Apple", 123, 123, "Citi", "Barclays");
-		boolean actual = tdu.addTrade(trade);
-		assertEquals(true, actual);
-	
-	}
+//	@Test
+//	final void testDeleteTrade() {
+//		TradeDaoUtil tdu = new TradeDaoUtil();
+//		Trade trade = tdu.getTrade(3);
+//		boolean actual = tdu.deleteTrade(trade);
+//		assertEquals(true, actual);
+//	}
+//
+//	@Test
+//	final void testAddTrade() {
+//		TradeDaoUtil tdu = new TradeDaoUtil();
+//		Trade trade = new Trade(121, "Monday", "Apple", 123, 123, "Citi", "Barclays");
+//		boolean actual = tdu.addTrade(trade);
+//		assertEquals(true, actual);
+//	
+//	}
 
 }

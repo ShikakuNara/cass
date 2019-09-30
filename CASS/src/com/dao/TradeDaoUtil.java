@@ -38,7 +38,7 @@ public class TradeDaoUtil implements TradeDao{
 				String buyer = clearingMemberDao.getNameById(buyerId);
 				String seller = clearingMemberDao.getNameById(sellerId);
 				Trade trade = new Trade(id, day, securityName, quantity, price, buyer, seller);
-				
+				System.out.println("trade:"+trade);
 				trades.add(trade);
 			}
 		} catch (SQLException e) {
@@ -107,9 +107,11 @@ public class TradeDaoUtil implements TradeDao{
 				double price = rs.getDouble("price");
 				int buyerId = rs.getInt("buyerId");
 				int sellerId = rs.getInt("sellerId");
+				System.out.println("id"+buyerId);
 				String buyer = clearingMemberDao.getNameById(buyerId);
 				String seller = clearingMemberDao.getNameById(sellerId);
 				t = new Trade(id, day, securityName, quantity, price, buyer, seller);
+				System.out.println(t);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -124,7 +126,9 @@ public class TradeDaoUtil implements TradeDao{
 		SecurityDaoUtil securityDao = new SecurityDaoUtil();
 		ClearingMemberDaoUtil clearingMemberDao = new ClearingMemberDaoUtil();
 		int buyerID = clearingMemberDao.getIdByName(trade.getBuyer());
+		System.out.println(buyerID);
 		int sellerID = clearingMemberDao.getIdByName(trade.getSeller());
+		System.out.println(sellerID);
 		int securityID = securityDao.getIdByName(trade.getSecurityName());
 		try(Connection conn = DBConnection.openConnection()){
 			PreparedStatement ps = conn.prepareStatement(SQL_UPDATE_TRADE);
@@ -153,13 +157,13 @@ public class TradeDaoUtil implements TradeDao{
 	
 	
 	@Override
-	public boolean deleteTrade(Trade trade) {
+	public boolean deleteTrade(int tradeID) {
 	     Boolean updated=false;
 		String SQL_DELETE_TRADE = "DELETE FROM trades WHERE tradeID=?"; 
 		try(Connection conn = DBConnection.openConnection()){
 			PreparedStatement ps = conn.prepareStatement(SQL_DELETE_TRADE);
 			
-			ps.setInt(1, trade.getTradeId() );
+			ps.setInt(1, tradeID);
 			int update = ps.executeUpdate();
 			if(update >0) {
 				System.out.println("Deleted Records Successfully");
@@ -177,39 +181,96 @@ public class TradeDaoUtil implements TradeDao{
 	
 	}
 	@Override
-	public boolean addTrade(Trade trade) {
-		boolean updated=false;
+	public int addTrade(Trade trade) {
+		int tid = 0;
+		if(trade.getTradeId()==0)
+		{
 		String SQL_ADD_TRADE = "insert into trades values(?,?,?,?,?,?)";
 		SecurityDaoUtil securityDao = new SecurityDaoUtil();
 		ClearingMemberDaoUtil clearingMemberDao = new ClearingMemberDaoUtil();
 		int buyerID = clearingMemberDao.getIdByName(trade.getBuyer());
+		
 		int sellerID = clearingMemberDao.getIdByName(trade.getSeller());
 		int securityID = securityDao.getIdByName(trade.getSecurityName());
-	
 		try(Connection conn = DBConnection.openConnection()){
 			PreparedStatement ps = conn.prepareStatement(SQL_ADD_TRADE);
-		
-			ps.setInt(1, trade.getTradeId() );
+			String SQL_GET_TRADE = "select max(tradeid) from trades where tradeid is not null";
+			try(Connection conn1 = DBConnection.openConnection()){
+				PreparedStatement s = conn.prepareStatement(SQL_GET_TRADE);
+				ResultSet rs=s.executeQuery();
+				while(rs.next())
+				{
+					tid=rs.getInt("max(tradeid)");
+				}
+				
+				System.out.println(tid);
+			}
+			
+			ps.setInt(1, tid+1 );
 			ps.setInt(2, securityID );
 			ps.setInt(3, trade.getQuantity());
 			ps.setDouble(4, trade.getPrice());
 			ps.setInt(5, buyerID );
 			ps.setInt(6, sellerID );
-			
+			System.out.println("before insert");
 		int	rows = ps.executeUpdate();
+if(rows>0) {
+			
 		
-		if(rows>0) {
-			updated=true;
-			System.out.println("Trade is successfully added");
+			try(Connection conn1 = DBConnection.openConnection()){
+				PreparedStatement s = conn.prepareStatement(SQL_GET_TRADE);
+				ResultSet rs=s.executeQuery();
+				while(rs.next())
+				{
+					tid=rs.getInt("max(tradeid)");
+				}
+				
+				System.out.println(tid);
+			}
 		}
 		else {
-			updated=false;
+			tid=0;
 			System.out.println("Something is wrong");
 		}
-	}catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			e.printStackTrace();
 		}
-	return updated;
+		}
+		else {
+			
+			String SQL_ADD_TRADE = "insert into trades values(?,?,?,?,?,?)";
+			SecurityDaoUtil securityDao = new SecurityDaoUtil();
+			ClearingMemberDaoUtil clearingMemberDao = new ClearingMemberDaoUtil();
+			int buyerID = clearingMemberDao.getIdByName(trade.getBuyer());
+			
+			int sellerID = clearingMemberDao.getIdByName(trade.getSeller());
+			int securityID = securityDao.getIdByName(trade.getSecurityName());
+			try(Connection conn = DBConnection.openConnection()){
+				PreparedStatement ps = conn.prepareStatement(SQL_ADD_TRADE);
+			
+				ps.setInt(1, trade.getTradeId() );
+				ps.setInt(2, securityID );
+				ps.setInt(3, trade.getQuantity());
+				ps.setDouble(4, trade.getPrice());
+				ps.setInt(5, buyerID );
+				ps.setInt(6, sellerID );
+				System.out.println("before update");
+			int	rows = ps.executeUpdate();
+			if(rows>0) {
+				
+				tid=trade.getTradeId();
+			}
+			else {
+				tid=0;
+				System.out.println("Something is wrong");
+			}
+		}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+	}
+	return tid;
 		
 		
 	}
