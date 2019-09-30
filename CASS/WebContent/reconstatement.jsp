@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@page import="java.util.Map"%>
 <%@page import="com.beans.Balance"%>
+<%@ taglib prefix ="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 
 <head>
@@ -30,6 +31,7 @@
 
 <%
 Balance balance = (Balance)request.getAttribute("balance");
+Balance initialBalance=(Balance)request.getAttribute("initialBalance");
 Map<String,Integer> security = balance.getSecurityBalance();
 Balance shortBal = (Balance)request.getAttribute("short");
 Map<String,Integer> shortsecurity = shortBal.getSecurityBalance();
@@ -57,37 +59,37 @@ Map<String,Integer> oblisecurity = obligation.getSecurityBalance();
             </div>
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="clearingmember.html">
+                    <a class="nav-link" href="clearingmember.jsp">
                         <i class="mdi mdi-database menu-icon text-primary"></i>
                         <span class="menu-title">Trade Data</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="oblreport.html">
+                    <a class="nav-link" href="oblreport.jsp">
                         <i class="mdi mdi-elevator menu-icon text-warning"></i>
                         <span class="menu-title">Obligation Report</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="settlreport.html">
+                    <a class="nav-link" href="settlreport.jsp">
                         <i class="mdi mdi-file-check menu-icon text-info"></i>
                         <span class="menu-title">Settlement Report </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="reconstatement.html">
+                    <a class="nav-link" href="reconstatement.jsp">
                         <i class="mdi mdi-chart-bar menu-icon text-success"></i>
                         <span class="menu-title">Reconciliation Statement </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="account.html">
+                    <a class="nav-link" href="account.jsp">
                         <i class="mdi mdi-account menu-icon text-dark"></i>
                         <span class="menu-title">Account </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html">
+                    <a class="nav-link" href="login.jsp">
                         <i class="mdi mdi-logout-variant menu-icon text-danger"></i>
                         <span class="menu-title">Logout</span>
                     </a>
@@ -121,41 +123,41 @@ Map<String,Integer> oblisecurity = obligation.getSecurityBalance();
                                         </thead>
                                         <tbody>
                                             <tr>
-                                               
                                                 <td>Initial Balance</td>
                                                 
                                                  <% for(Map.Entry<String,Integer> entry : security.entrySet()) {
                                         	int quantity = entry.getValue();
                                         %>
-                                                <td><%= quantity %></td>
+                                                <td><fmt:formatNumber type = "number" maxFractionDigits="2" value="<%= initialBalance.getSecurityBalance().get(entry.getKey())%>"></fmt:formatNumber></td>
                                             
                                                 <% }%>
                                                 
-                                                <td><%= balance.getFunds()%> </td>
+                                                <td><fmt:formatNumber type = "number" maxFractionDigits="2" value="<%= initialBalance.getFunds()%>"></fmt:formatNumber></td>
                                             </tr>
                                             <tr>
                                                 <td>Trades</td>
                                                   <% for(Map.Entry<String,Integer> entry : oblisecurity.entrySet()) {
                                         	int quantity = entry.getValue();
                                         %>
-                                                <td><%= quantity %></td>
+                                                <td><fmt:formatNumber type = "number" maxFractionDigits="2" value="<%= quantity%>"></fmt:formatNumber></td>
                                             
                                                 <% }%>
-                                                 <td><%= obligation.getFunds()%> </td>
+                                                 <td><fmt:formatNumber type = "number" maxFractionDigits="2" value="<%= obligation.getFunds()%>"></fmt:formatNumber> </td>
                                             </tr>
-                                            <tr>
+                                           <tr>
                                                 <td>Shortages</td>
                                                    <% for(Map.Entry<String,Integer> entry : security.entrySet()) {
                                                 	   int quantity = 0;
                                                 	   if(shortsecurity.containsKey(entry.getKey()))
                                         	                quantity = shortsecurity.get(entry.getKey());
                                         %>
-                                                <td><%= quantity %></td>
+                                                <td><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%= quantity%>"></fmt:formatNumber></td>
                                             
                                                 <% }%>
                                                 
-                                                <td> <%= shortBal.getFunds() %> </td>
+                                                <td> <fmt:formatNumber type = "number" maxFractionDigits="3" value="<%= shortBal.getFunds()%>"></fmt:formatNumber> </td>
                                             </tr>
+                                            <tr>
                                             <tr>
                                                 <td>Corporate Actions</td>
                                                 <td>1</td>

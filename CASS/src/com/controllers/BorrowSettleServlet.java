@@ -38,9 +38,9 @@ public class BorrowSettleServlet extends HttpServlet {
 		ClearingMemberDaoUtil memberDao=new ClearingMemberDaoUtil();
 		Balance shortBalance = shortageHandling.calculateShortage(memberBalance, obligationBalance);
 
-		Balance balance = obligationDao.getBalanceByClearingMember(6);
+		Balance balance = obligationDao.getBalanceByClearingMember(1);
 		
-		shortageHandling.settleShortage(shortBalance, memberBalance);
+		shortageHandling.settleShortage(shortBalance,obligationBalance, memberBalance);
 
 		//balance.setFunds(0);
 		Map<String, Integer> security = balance.getSecurityBalance();
@@ -53,6 +53,8 @@ public class BorrowSettleServlet extends HttpServlet {
 
 		System.out.println("Updated obligation: "+balance);
 		List<Balance> balances = new ArrayList<Balance>();
+		ShortageHandling shortageH = new  ShortageHandling();
+		
 		balances.add(balance);
 		obligationDao.updateAllBalances(balances );
 
@@ -60,9 +62,12 @@ public class BorrowSettleServlet extends HttpServlet {
 		
 		System.out.println("Obligation: "+obligationBalance);
 		request.setAttribute("balance", obligationBalance);
+		request.setAttribute("short",shortBalance);
+		request.setAttribute("obligation",obligationBalance);
+		request.setAttribute("initialBalance",balanceDao.getInitialBalanceByClearingMember(1));
 		if(memberDao.getReportGenerated()==6)
 		{
-			RequestDispatcher dispatcher = request.getRequestDispatcher("oblreport.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("settlreport.jsp");
 			dispatcher.forward(request, response);
 		}
 		else

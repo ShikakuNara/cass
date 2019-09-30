@@ -23,12 +23,12 @@ public class ShortageHandling {
 		if(shortageFund<0)
 		{
 			shortageBalance.setFunds(-shortageFund);
-			memberBalance.setFunds(0);
+			//memberBalance.setFunds(0);
 		}
 		else
 		{
 			shortageBalance.setFunds(0);
-			memberBalance.setFunds(memberFund - obligationFund);
+			//memberBalance.setFunds(memberFund - obligationFund);
 		}
 		
 		Map<String,Integer> memberSecurity = memberBalance.getSecurityBalance();
@@ -44,11 +44,12 @@ public class ShortageHandling {
 			if(shortQuantity  < 0)
 			{
 				shortSecurity.put(securityName, -shortQuantity);
-				memberSecurity.put(securityName, 0);
+				//memberSecurity.put(securityName, 0);
 			}
 			else
 			{
-				memberSecurity.put(securityName, memberQuantity-obligationQuantity);
+				shortSecurity.put(securityName, 0);
+				//memberSecurity.put(securityName, memberQuantity-obligationQuantity);
 			}
 				
 		}
@@ -61,7 +62,7 @@ public class ShortageHandling {
 		return shortageBalance;
 	}
 
-	public void settleShortage(Balance shortageBalance, Balance memberBalance) {
+	public void settleShortage(Balance shortageBalance, Balance obligtionBalance,Balance memberBalance) {
 		double shortFundBal = shortageBalance.getFunds();
 		System.out.println(shortFundBal);
 		double fundsIR = 1.25;
@@ -76,6 +77,8 @@ public class ShortageHandling {
 		}
 
 		Map<String, Integer> shortSecBal = shortageBalance.getSecurityBalance();
+		Map<String,Integer> memberSecurity=memberBalance.getSecurityBalance();
+		Map<String,Integer> obligationSecurity=obligtionBalance.getSecurityBalance();
 
 		if (shortSecBal.isEmpty()) {
 			System.out.println("There is no security shortage");
@@ -84,15 +87,27 @@ public class ShortageHandling {
 			for (Map.Entry<String, Integer> entry : shortSecBal.entrySet()) {
 
 				String securityName = entry.getKey();
-				Integer securityQuantity = entry.getValue();
-				SecurityDaoUtil securitydaoutil = new SecurityDaoUtil();
-				double IR = securitydaoutil.getSecurityByName(securityName).getInterestRate();
-				double marketPrice = securitydaoutil.getSecurityByName(securityName).getMarketPrice();
-				double shortSecFund = securityQuantity * marketPrice;
-				double secInterest = (shortSecFund * (IR / 100f) * (2f / 365f));
-				System.out.println("Security ir "+secInterest);
-				double finalBalance = memberBalance.getFunds() - shortSecFund - secInterest;
-				memberBalance.setFunds(finalBalance);
+				
+				Integer memberQuantity=memberSecurity.get(securityName);
+				Integer obligationQuantity=obligationSecurity.get(securityName);
+				if(entry.getValue()==0)
+				{	
+					memberSecurity.put(securityName, memberQuantity-obligationQuantity);
+				}
+				else
+				{
+					Integer securityQuantity = entry.getValue();
+					SecurityDaoUtil securitydaoutil = new SecurityDaoUtil();
+
+					double IR = securitydaoutil.getSecurityByName(securityName).getInterestRate();
+					double marketPrice = securitydaoutil.getSecurityByName(securityName).getMarketPrice();
+					double shortSecFund = securityQuantity * marketPrice;
+					double secInterest = (shortSecFund * (IR / 100f) * (2f / 365f));
+					System.out.println("Security ir "+secInterest);
+					double finalBalance = memberBalance.getFunds() - shortSecFund - secInterest;
+					memberBalance.setFunds(finalBalance);
+				}
+				
 
 			}
 		}

@@ -111,7 +111,9 @@ public class ClearingMemberDaoUtil implements ClearingMemberDao{
 					 count++;
 				 }
 			}
+			System.out.println("Count is:"+count);
 			return count;
+			
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();

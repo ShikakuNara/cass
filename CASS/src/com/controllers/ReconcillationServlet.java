@@ -28,12 +28,14 @@ public class ReconcillationServlet extends HttpServlet {
 		ObligationBalanceDaoUtil obligationDao = new ObligationBalanceDaoUtil();
 		Balance memberBalance  = balanceDao.getBalanceByClearingMember(6);
 		Balance obligationBalance = obligationDao.getBalanceByClearingMember(6);
+		Balance initialBalance=balanceDao.getInitialBalanceByClearingMember(6);
 
 		Balance shortBalance = shortageHandling.calculateShortage(memberBalance, obligationBalance);
 		
 		request.setAttribute("balance", memberBalance);
 		request.setAttribute("short", shortBalance);
 		request.setAttribute("obligation", obligationBalance);
+		request.setAttribute("initialBalnce",initialBalance);
 		
 		System.out.println("Balance: "+memberBalance);
 		System.out.println("Short: "+shortBalance);
