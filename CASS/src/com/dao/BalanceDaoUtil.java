@@ -197,6 +197,40 @@ public class BalanceDaoUtil implements BalanceDao{
 		return isUpdated;
 	}
 	
+	public Balance getInitialBalanceByClearingMember(int clearingMemberId) {
+		Balance balance = new Balance();
+		RightDaoUtil rightsDao = new RightDaoUtil();
+		
+		String SQL_GET_BALANCE_BY_ID = "SELECT * FROM InitialBalances WHERE clearingMemberId=?";
+		
+		
+		try(Connection conn = DBConnection.openConnection()){
+			PreparedStatement ps = conn.prepareStatement(SQL_GET_BALANCE_BY_ID);
+			
+			ps.setInt(1, clearingMemberId);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				balance.setClearingMemberId(rs.getInt("clearingMemberId"));
+				balance.setFunds(rs.getDouble("funds"));
+				Map<String, Integer> securityBalance = new HashMap<>();
+				securityBalance.put("Facebook", rs.getInt("facebook"));
+				securityBalance.put("LinkedIn", rs.getInt("linkedin"));
+				securityBalance.put("GE", rs.getInt("ge"));
+				securityBalance.put("Apple", rs.getInt("apple"));
+				securityBalance.put("Walmart", rs.getInt("walmart"));
+				balance.setSecurityBalance(securityBalance);
+				List<Rights> rights = rightsDao.getRightsByClearingMember(clearingMemberId);
+				balance.setRights(rights);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return balance;
+	}
+	
 	//Not useful
 	@Override
 	public boolean updateAllBalances(List<Balance> balances) {

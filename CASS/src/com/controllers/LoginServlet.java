@@ -10,14 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.algorithms.ShortageHandling;
-import com.beans.Balance;
 import com.beans.Trade;
 import com.beans.User;
 import com.beans.User.Role;
-import com.dao.BalanceDaoUtil;
-import com.dao.ClearingMemberDaoUtil;
-import com.dao.ObligationBalanceDaoUtil;
 import com.dao.TradeDaoUtil;
 import com.dao.UserDaoUtil;
 
@@ -69,7 +64,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		else
 		{
-			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 			dispatcher.forward(request, response);
 		}	
 	}

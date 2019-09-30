@@ -83,6 +83,7 @@
         <!-- partial -->
         <div class="main-panel">
             <div class="content-wrapper">
+            <%if(request.getAttribute("message") != null){ %>
                 <div class="row" id="proBanner">
                     <div class="col-md-12 grid-margin">
                         <div class="card bg-gradient-success border-0">
@@ -97,7 +98,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> <%} %>
                 <div class="row">
                     <div class="col-md-6 grid-margin stretch-card">
                         <div class="card" id="split">
@@ -110,7 +111,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Security</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control" name="security">
+                                            <select class="form-control text-dark" name="security">
                                                 <option selected disabled>Please select an option</option>
                                                 <option value="Apple">Apple</option>
                                                 <option value="LinkedIn">LinkedIn</option>
@@ -123,7 +124,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Issue</label>
                                         <div class="col-sm-6">
-                                            <input type="number" placeholder="1" class="form-control" name="factor" />
+                                            <input type="number" placeholder="1" class="form-control text-dark" name="factor" />
                                         </div>
                                         <label class="col-sm-4 col-form-label">shares for 1 share</label>
                                     </div>
@@ -144,7 +145,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Security</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control" name="security">
+                                            <select class="form-control text-dark" name="security">
                                                 <option selected disabled>Please select an option</option>
                                                 <option value="Apple">Apple</option>
                                                 <option value="LinkedIn">LinkedIn</option>
@@ -157,7 +158,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Issue</label>
                                         <div class="col-sm-6">
-                                            <input type="number" placeholder="1" class="form-control" name="factor"/>
+                                            <input placeholder="1" class="form-control" name="factor"/>
                                         </div>
                                         <label class="col-sm-4 col-form-label">shares for 1 share</label>
                                     </div>
@@ -180,7 +181,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Security</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control" name="security"
+                                            <select class="form-control text-dark" name="security"
                                                 onchange="checkvalue(this.value)">
                                                 <option selected disabled>Please select an option</option>
                                                 <option value="Apple">Apple</option>
@@ -221,7 +222,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label">Security</label>
                                         <div class="col-sm-9">
-                                            <select class="form-control" name="security">
+                                            <select class="form-control text-dark" name="security">
                                                 <option selected disabled>Please select an option</option>
                                                 <option value="Apple">Apple</option>
                                                 <option value="LinkedIn">LinkedIn</option>

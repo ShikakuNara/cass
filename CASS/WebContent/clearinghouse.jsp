@@ -101,7 +101,7 @@ String status = (String)request.getAttribute("status");
                   
                 </div>
                 <%} %>
-              </div>
+              </div></div>
           <div class="row">
             <div class="col-md-12 stretch-card">
               <div class="card">
@@ -231,7 +231,7 @@ String status = (String)request.getAttribute("status");
                     </table>
                   </div><br><br>
                   <div class="row"><div class="col-4"></div>
-                  <div class="col-4"><a href="startClearing"><button class="btn btn-block btn-primary mt-2 mt-xl-0 btn-icon-text"><i class="mdi mdi-chart-areaspline btn-icon-prepend"></i> Generate report</button></a></div>
+                  <div class="col-4"><a href="startClearing"  style="text-decoration: none"><button class="btn btn-block btn-primary mt-2 mt-xl-0 btn-icon-text"><i class="mdi mdi-chart-areaspline btn-icon-prepend"></i> Generate report</button></a></div>
                   <div class="col-4"></div></div>
                   
                 </div>

@@ -100,18 +100,20 @@ List<Balance> obligations = (List<Balance>) request.getAttribute("obligation");
                                             <i class="mdi mdi-apple mr-3 icon-lg text-dark"></i>
                                         </td>
                                         <td class="py-1">
-                                            <i class="mdi mdi-facebook  mr-3 icon-lg text-dark"></i>
+                                            <i class="mdi mdi-facebook  mr-3 icon-lg text-primary"></i>
                                         </td>
                                         <td class="py-1">
-                                             <i class="mdi mdi-twitter mr-3 icon-lg text-dark"></i>
+                                             <i class="mdi mdi-linkedin mr-3 icon-lg text-info"></i>
                                         </td>
                                         <td class="py-1">
-                                             <i class="mdi mdi-amazon mr-3 icon-lg text-dark"></i>
+                                             <i class="mdi mdi-twitter mr-3 icon-lg text-primary"></i>
                                         </td>
                                         <td class="py-1">
-                                             <i class="mdi mdi-linkedin mr-3 icon-lg text-dark"></i>
+                                             <i class="mdi mdi-amazon mr-3 icon-lg text-warning"></i>
                                         </td>
-                                        <th>Funds</th>
+                                        <td class="py-1">
+                                             <i class="mdi mdi-currency-usd mr-3 icon-lg text-dark"></i>
+                                        </td>
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -121,23 +123,23 @@ List<Balance> obligations = (List<Balance>) request.getAttribute("obligation");
                                String name = dao.getNameById(balance.getClearingMemberId()); %>
                               
                                     <tr>
-                                      <td><%= name %></td>
+                                      <td><b><%= name %></b></td>
                                <%        Map<String,Integer> security=balance.getSecurityBalance();
                                for(Map.Entry<String,Integer> entry: security.entrySet()) { 
                                %>
                                <%if(entry.getValue()>0){ %>
-                                      <td class="text-success"><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=entry.getValue() %>"></fmt:formatNumber> <i class="mdi mdi-arrow-up"></i></td>
+                                      <td class="text-success"><b><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=entry.getValue() %>"></fmt:formatNumber> <i class="mdi mdi-arrow-up"></i></b></td>
                                       <%}else if(entry.getValue()<0){ %>
-                                      <td class="text-danger"><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=entry.getValue() %>"></fmt:formatNumber> <i class="mdi mdi-arrow-down"></i></td>
+                                      <td class="text-danger"><b><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=entry.getValue() %>"></fmt:formatNumber> <i class="mdi mdi-arrow-down"></i></b></td>
                                       <%}else { %>
                                        <td class="text-dark"><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=entry.getValue() %>"></fmt:formatNumber> </td>
                                     <%} } %>  
                                     <%if (balance.getFunds() >0){%>
-                                    <td><label class="text-success">$<fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=balance.getFunds() %>"></fmt:formatNumber></label></td>
+                                    <td><label class="badge badge-success">$<fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=balance.getFunds() %>"></fmt:formatNumber></label></td>
                                     <% }else if (balance.getFunds() <0) { %>
-                                      <td><label class="text-danger">$<fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=balance.getFunds() %>"></fmt:formatNumber></label></td>
+                                      <td><label class="badge badge-danger">$<fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=balance.getFunds() %>"></fmt:formatNumber></label></td>
                                       <%} else { %>
-                                       <td><label class="text-dark">$<fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=balance.getFunds() %>"></fmt:formatNumber></label></td>
+                                       <td><b><label class="text-dark">$<fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=balance.getFunds() %>"></fmt:formatNumber></label></b></td>
                                     </tr>
                                     
                               

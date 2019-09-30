@@ -29,9 +29,8 @@
 </head>
 
 <body>
-<% List<Trade> trades = (List<Trade>) request.getAttribute("trades"); %>; 
-<% String name = (String)request.getAttribute("name");
-%>
+<% List<Trade> trades = (List<Trade>) request.getAttribute("trades"); %>
+<% String name = (String)request.getAttribute("name");%>
     <div class="container-scroller"></div>
     <div class="container-fluid page-body-wrapper" style="padding-top: 0%">
         <!-- partial:partials/_sidebar.html -->
@@ -124,15 +123,15 @@
                                             <tr>
                                            		 <td><%=trade.getTradeId() %></td>
                                                 <td class="py-1">
-                                                     <i class="mdi mdi-apple mr-3 icon-lg text-dark"></i>
+                                                     <i class="mdi mdi-<%=trade.getSecurityName().toLowerCase() %> mr-3 icon-md" title="<%=trade.getSecurityName()%>"></i>
                                                 </td>
                                                 
                                                 <td><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=trade.getQuantity() %>"></fmt:formatNumber></td>
                                                 <td><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=trade.getPrice() %>"></fmt:formatNumber></td>
                 <%if(trade.getBuyer().equals(name)){ %>
-                                                <td><a href=""><label class="text-success">Buy</label></a></td>
+                                                <td><label class="badge badge-success">Buy</label></td>
                                                 <%} else {%>
-                                                <td><a href=""><label class="text-danger">Sell</label></a></td>
+                                                <td><label class="badge badge-danger">Sell</label></td>
                                                 <%} %>
                                             </tr>
                                             <%} %>
@@ -161,7 +160,7 @@
         <!-- main-panel ends -->
     </div>
     <!-- page-body-wrapper ends -->
-    </div>
+    
     <!-- container-scroller -->
 
 
@@ -181,6 +180,15 @@
     <!-- Custom js for this page-->
     <script>
         $(document).ready(function () {
+            $('.mdi-apple').addClass("text-dark");
+            $('.mdi-facebook').addClass("text-primary");
+            $('.mdi-linkedin').addClass("text-info");
+            $('.mdi-amazon').addClass("text-warning");
+            $('.mdi-twitter').addClass("text-primary");
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
             var table = $('#recent-trades-listing').DataTable({
 
                 "lengthChange": false,
@@ -191,6 +199,7 @@
             });
         }); 
     </script>
+    
     <!-- End custom js for this page-->
 </body>
 

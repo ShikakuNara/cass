@@ -12898,6 +12898,11 @@ input[type="button"].btn-block {
   border-radius: 0;
 }
 
+.card:hover {
+  border: 1px solid #000;
+  border-radius: 0;
+}
+
 .card > hr {
   margin-right: 0;
   margin-left: 0;
@@ -18710,7 +18715,7 @@ code {
 
 /* Utilities */
 .grid-margin {
-  margin-bottom: 1.875rem;
+  margin-bottom: 1.04rem;
 }
 
 @media (min-width: 576px) {
@@ -19883,7 +19888,7 @@ code {
   color: #4a4a4a;
   margin-bottom: 1.5rem;
   text-transform: uppercase;
-  font-size: .875rem;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
@@ -21106,8 +21111,9 @@ dl li {
 }
 
 .content-wrapper {
-  background: #f3f3f3;
-  padding: 2.1rem 1.04rem;
+  /* background: #e1e1e1; */
+  background-image: url('../images/bg2.png');
+  padding: 1.04rem 1.04rem;
   width: 100%;
   -webkit-flex-grow: 1;
   flex-grow: 1;
@@ -21389,7 +21395,7 @@ dl li {
 
 .navbar .navbar-brand-wrapper .navbar-brand-inner-wrapper .navbar-brand img {
   width: calc(257px - 150px);
-  max-width: 100%;
+  max-width: 30%;
   height: 34px;
   margin: auto;
   vertical-align: middle;

@@ -121,7 +121,7 @@ Map<String,Integer> ShortSecurity = shortBalance.getSecurityBalance();
                                         %>
                                             <div
                                                 class="d-flex flex-grow-1 border-md-right align-items-center justify-content-center p-3 item">
-                                                <i class="mdi mdi-<%=entry.getKey().toLowerCase() %> mr-3 icon-lg text-dark"></i>
+                                                <i class="mdi mdi-<%=entry.getKey().toLowerCase() %> mr-3 icon-lg"></i>
                                                 <div class="d-flex flex-column justify-content-around">
                                                 <%if(quantity>0){ %>
                                                     <small class="mb-1 text-success">Receive <i
@@ -165,20 +165,20 @@ Map<String,Integer> ShortSecurity = shortBalance.getSecurityBalance();
                                     <table class="table table-hover table-bordered">
                                         <thead>
                                             <tr>
-                                                <th>
-                                                    Shortage Unit
+                                                <th><b>
+                                                    Shortage Unit</b>
                                                 </th>
-                                                <th>
-                                                    Quantity
+                                                <th><b>
+                                                    Quantity</b>
                                                 </th>
-                                                <th>
-                                                    Price
+                                                <th><b>
+                                                    Price</b>
                                                 </th>
-                                                <th>
-                                                    Interest Rate (% p.a)
+                                                <th><b>
+                                                    Interest Rate (% p.a)</b>
                                                 </th>
-                                                <th>
-                                                    Interest
+                                                <th><b>
+                                                    Interest</b>
                                                 </th>
                                                 
                                             </tr>
@@ -193,7 +193,7 @@ Map<String,Integer> ShortSecurity = shortBalance.getSecurityBalance();
 				double shortSecFund = securityQuantity * marketPrice;
 				double secInterest = (shortSecFund * (IR / 100f) * (2f / 365f));%>
                                             <tr>
-                                                <td>  <i class="mdi mdi-<%=entry.getKey().toLowerCase() %> mr-3 icon-lg text-dark"></i></td>
+                                                <td>  <i class="mdi mdi-<%=entry.getKey().toLowerCase() %> mr-3 icon-md"></i></td>
                                                 <td><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=entry.getValue() %>"></fmt:formatNumber></td>
                                                 <td>$<fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=marketPrice %>"></fmt:formatNumber></td>
                                                 <td><%=IR %></td>
@@ -216,6 +216,7 @@ Map<String,Integer> ShortSecurity = shortBalance.getSecurityBalance();
                     </div>
                     <!-- page-body-wrapper ends -->
                 </div>
+                </div></div></div>
                 <!-- container-scroller -->
 
 
@@ -234,6 +235,15 @@ Map<String,Integer> ShortSecurity = shortBalance.getSecurityBalance();
                 <!-- endinject -->
                 <!-- Custom js for this page-->
                 <!-- End custom js for this page-->
+                <script>
+                    $(document).ready(function () {
+                        $('.mdi-apple').addClass("text-dark");
+                        $('.mdi-facebook').addClass("text-primary");
+                        $('.mdi-linkedin').addClass("text-info");
+                        $('.mdi-amazon').addClass("text-warning");
+                        $('.mdi-twitter').addClass("text-primary");
+                    });
+                </script>
 </body>
 
 </html>
