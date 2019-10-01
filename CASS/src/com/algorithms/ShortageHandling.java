@@ -69,11 +69,17 @@ public class ShortageHandling {
 		double fundInterest = (shortFundBal * ((fundsIR / 100f) * (2f / 365f)));
 		System.out.println((2.5f / 36500f));
 		System.out.println(fundInterest);
+		double memberFund = memberBalance.getFunds();
+		double obligationFund = obligtionBalance.getFunds();
 
 		if(shortFundBal!=0)
 		{
 			double finalBalance = - (shortFundBal + fundInterest);
 			memberBalance.setFunds(finalBalance);
+		}
+		else
+		{
+			memberBalance.setFunds(memberFund-obligationFund);
 		}
 
 		Map<String, Integer> shortSecBal = shortageBalance.getSecurityBalance();
@@ -104,7 +110,7 @@ public class ShortageHandling {
 					double shortSecFund = securityQuantity * marketPrice;
 					double secInterest = (shortSecFund * (IR / 100f) * (2f / 365f));
 					System.out.println("Security ir "+secInterest);
-					double finalBalance = memberBalance.getFunds() - shortSecFund - secInterest;
+					double finalBalance = memberBalance.getFunds() - secInterest;
 					memberBalance.setFunds(finalBalance);
 				}
 				

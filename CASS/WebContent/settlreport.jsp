@@ -31,8 +31,9 @@
 <body>
 <%
 Balance balance = (Balance)request.getAttribute("balance");
-Balance initialBalance=(Balance)request.getAttribute("initialBalance");
 Map<String,Integer> security = balance.getSecurityBalance();
+Balance initialBalance=(Balance)request.getAttribute("initialBalance");
+Map<String,Integer> isecurity = initialBalance.getSecurityBalance();
 Balance shortBal = (Balance)request.getAttribute("short");
 Map<String,Integer> shortsecurity = shortBal.getSecurityBalance();
 Balance obligation = (Balance)request.getAttribute("obligation");
@@ -111,11 +112,11 @@ Map<String,Integer> oblisecurity = obligation.getSecurityBalance();
                                                 <th>
                                                     #
                                                 </th>
-                                                <th><i class="mdi mdi-apple icon-md text-dark"></i></th>
-                                                <th><i class="mdi mdi-facebook icon-md text-primary"></i></th>
                                                 <th><i class="mdi mdi-linkedin icon-md text-info"></i></th>
+                                                <th><i class="mdi mdi-apple icon-md text-dark"></i></th>
                                                 <th><i class="mdi mdi-twitter icon-md text-danger"></i></th>
                                                 <th><i class="mdi mdi-amazon icon-md text-warning"></i></th>
+                                                <th><i class="mdi mdi-facebook icon-md text-primary"></i></th>
                                                 <th><i class="mdi mdi-currency-usd icon-md text-dark"></i></th>
 
                                             </tr>
@@ -125,7 +126,7 @@ Map<String,Integer> oblisecurity = obligation.getSecurityBalance();
                                             <tr>
                                                 <td>Initial Balance</td>
                                                 
-                                                 <% for(Map.Entry<String,Integer> entry : security.entrySet()) {
+                                                 <% for(Map.Entry<String,Integer> entry : isecurity.entrySet()) {
                                         	int quantity = entry.getValue();
                                         %>
                                                 <td><fmt:formatNumber type = "number" maxFractionDigits="2" value="<%=initialBalance.getSecurityBalance().get(entry.getKey())%>"></fmt:formatNumber></td>
@@ -188,15 +189,16 @@ Map<String,Integer> oblisecurity = obligation.getSecurityBalance();
                                             </tr>
                                             <tr>
                                                 <td>Final Balance</td>
-                                                   <% for(Map.Entry<String,Integer> entry : security.entrySet()) {
-                                                	   int obli = oblisecurity.get(entry.getKey());
-                                        	int quantity = entry.getValue() - obli;
+                                                <%Map<String,Integer> sec = balance.getSecurityBalance(); %>
+                                                   <% for(Map.Entry<String,Integer> entry : sec.entrySet()) {
+                                                	  // int obli = oblisecurity.get(entry.getKey());
+                                        	int quantity = entry.getValue();
                                         %>
                                                 <td><%= quantity %></td>
                                             
                                                 <% }%>
                                                 
-                                                <td><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=balance.getFunds()-obligation.getFunds()%>"></fmt:formatNumber> </td>
+                                                <td><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=balance.getFunds()%>"></fmt:formatNumber> </td>
                                             </tr>
                                         </tbody>
                                     </table>

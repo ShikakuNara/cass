@@ -72,7 +72,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html">
+                    <a class="nav-link" href="logout">
                         <i class="mdi mdi-logout-variant menu-icon text-danger"></i>
                         <span class="menu-title">Logout</span>
                     </a>

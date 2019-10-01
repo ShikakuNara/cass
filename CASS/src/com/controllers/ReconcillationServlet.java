@@ -36,7 +36,8 @@ public class ReconcillationServlet extends HttpServlet {
 		request.setAttribute("balance", memberBalance);
 		request.setAttribute("short", shortBalance);
 		request.setAttribute("obligation", obligationBalance);
-		request.setAttribute("initialBalnce",initialBalance);
+		request.setAttribute("initialBalance",initialBalance);
+		
 		
 		System.out.println("Balance: "+memberBalance);
 		System.out.println("Short: "+shortBalance);

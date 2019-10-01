@@ -217,7 +217,7 @@ public class BalanceDaoUtil implements BalanceDao{
 				Map<String, Integer> securityBalance = new HashMap<>();
 				securityBalance.put("Facebook", rs.getInt("facebook"));
 				securityBalance.put("LinkedIn", rs.getInt("linkedin"));
-				securityBalance.put("GE", rs.getInt("ge"));
+				securityBalance.put("Amazon", rs.getInt("amazon"));
 				securityBalance.put("Apple", rs.getInt("apple"));
 				securityBalance.put("Twitter", rs.getInt("twitter"));
 				balance.setSecurityBalance(securityBalance);

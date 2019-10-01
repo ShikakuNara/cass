@@ -97,19 +97,21 @@ List<Balance> obligations = (List<Balance>) request.getAttribute("obligation");
                                     <tr>
                                       <th>#</th>
                                       <td class="py-1">
-                                            <i class="mdi mdi-apple mr-3 icon-lg text-dark"></i>
+                                      		<i class="mdi mdi-linkedin mr-3 icon-lg text-info"></i>
+                                            
                                         </td>
                                         <td class="py-1">
-                                            <i class="mdi mdi-facebook  mr-3 icon-lg text-primary"></i>
-                                        </td>
-                                        <td class="py-1">
-                                             <i class="mdi mdi-linkedin mr-3 icon-lg text-info"></i>
+                                        <i class="mdi mdi-apple mr-3 icon-lg text-dark"></i>
+                                            
                                         </td>
                                         <td class="py-1">
                                              <i class="mdi mdi-twitter mr-3 icon-lg text-primary"></i>
                                         </td>
                                         <td class="py-1">
                                              <i class="mdi mdi-amazon mr-3 icon-lg text-warning"></i>
+                                        </td>
+                                        <td class="py-1">
+                                             <i class="mdi mdi-facebook  mr-3 icon-lg text-primary"></i>
                                         </td>
                                         <td class="py-1">
                                              <i class="mdi mdi-currency-usd mr-3 icon-lg text-dark"></i>

@@ -71,7 +71,8 @@ $(document).on("click", "#insertTrades", function() {
 	    	console.log(data)
 	    	var icon ="<i class='mdi mdi-";
 	        	var icon_end = " icon-md' >";
-	    	table.row.add([data.tradeId,icon.concat(data.securityName.toLowerCase(),icon_end),data.quantity,data.price,data.buyer,data.seller,"<button id='editTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal' data-target='#exampleModal'>Edit</button> <button id='removeTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal'>Remove</button>"])
+	        	var html = "<div class='template-demo d-flex justify-content-between flex-nowrap'><button id='editTrade' type='button' class='mt-0 px-0 py-0 btn btn-outline-secondary btn-rounded btn-icon justify-content-between'><i class='mdi mdi-pencil' data-dismiss='modal' data-target='#exampleModal'></i></button><button type='button' id='removeTrade' class='mt-0 px-0 py-0 btn btn-outline-secondary btn-rounded btn-icon' data-dismiss='modal'><i class='mdi mdi-delete'></i></button></div>";
+	    	table.row.add([data.tradeId,icon.concat(data.securityName.toLowerCase(),icon_end),data.quantity,data.price,data.buyer,data.seller,html])
 	    	table.draw();
         	
 	    }
@@ -89,7 +90,8 @@ $(document).on("click", "#insertTrades", function() {
 		    	console.log(data)
 		    	var icon ="<i class='mdi mdi-";
 	        	var icon_end = " icon-md' >";
-		    	table.row.add([data.tradeId,icon.concat(data.securityName.toLowerCase(),icon_end),data.quantity,data.price,data.buyer,data.seller,"<button id='editTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal' data-target='#exampleModal'>Edit</button> <button id='removeTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal'>Remove</button>"])
+	        	var html = "<div class='template-demo d-flex justify-content-between flex-nowrap'><button id='editTrade' type='button' class='mt-0 px-0 py-0 btn btn-outline-secondary btn-rounded btn-icon justify-content-between'><i class='mdi mdi-pencil' data-dismiss='modal' data-target='#exampleModal'></i></button><button type='button' id='removeTrade' class='mt-0 px-0 py-0 btn btn-outline-secondary btn-rounded btn-icon' data-dismiss='modal'><i class='mdi mdi-delete'></i></button></div>";
+		    	table.row.add([data.tradeId,icon.concat(data.securityName.toLowerCase(),icon_end),data.quantity,data.price,data.buyer,data.seller,html])
 		    	table.draw();
 	        	
 		    }
@@ -126,7 +128,8 @@ $(document).on("click", "#removeTrade", function() {
 	        $.each(data, function(index,element) {
 	        	var icon ="<i class='mdi mdi-";
 	        	var icon_end = " icon-md' >";
-	        	table.row.add([element.tradeId,icon.concat(element.securityName.toLowerCase(),icon_end),element.quantity,element.price,element.buyer,element.seller,"<button id='editTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal' data-target='#exampleModal'>Edit</button> <button id='removeTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal'>Remove</button>"])
+	        	var html = "<div class='template-demo d-flex justify-content-between flex-nowrap'><button id='editTrade' type='button' class='mt-0 px-0 py-0 btn btn-outline-secondary btn-rounded btn-icon justify-content-between'><i class='mdi mdi-pencil' data-dismiss='modal' data-target='#exampleModal'></i></button><button type='button' id='removeTrade' class='mt-0 px-0 py-0 btn btn-outline-secondary btn-rounded btn-icon' data-dismiss='modal'><i class='mdi mdi-delete'></i></button></div>";
+	        	table.row.add([element.tradeId,icon.concat(element.securityName.toLowerCase(),icon_end),element.quantity,element.price,element.buyer,element.seller,html])
 	                
 	        });
 	        table.draw();

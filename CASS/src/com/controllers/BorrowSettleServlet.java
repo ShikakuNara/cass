@@ -56,12 +56,12 @@ public class BorrowSettleServlet extends HttpServlet {
 		ShortageHandling shortageH = new  ShortageHandling();
 		
 		balances.add(balance);
-		obligationDao.updateAllBalances(balances );
+		//obligationDao.updateAllBalances(balances );
 
 		System.out.println("Settled");
 		
 		System.out.println("Obligation: "+obligationBalance);
-		request.setAttribute("balance", obligationBalance);
+		request.setAttribute("balance", memberBalance);
 		request.setAttribute("short",shortBalance);
 		request.setAttribute("obligation",obligationBalance);
 		request.setAttribute("initialBalance",balanceDao.getInitialBalanceByClearingMember(1));

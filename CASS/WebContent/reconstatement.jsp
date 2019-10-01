@@ -31,8 +31,8 @@
 
 <%
 Balance balance = (Balance)request.getAttribute("balance");
-Balance initialBalance=(Balance)request.getAttribute("initialBalance");
 Map<String,Integer> security = balance.getSecurityBalance();
+Balance initialBalance=(Balance)request.getAttribute("initialBalance");
 Balance shortBal = (Balance)request.getAttribute("short");
 Map<String,Integer> shortsecurity = shortBal.getSecurityBalance();
 Balance obligation = (Balance)request.getAttribute("obligation");
@@ -112,11 +112,11 @@ Map<String,Integer> oblisecurity = obligation.getSecurityBalance();
                                                 <th>
                                                     #
                                                 </th>
-                                                <th><i class="mdi mdi-apple icon-md text-dark"></i></th>
-                                                <th><i class="mdi mdi-facebook icon-md text-primary"></i></th>
                                                 <th><i class="mdi mdi-linkedin icon-md text-info"></i></th>
+                                                <th><i class="mdi mdi-apple icon-md text-dark"></i></th>
                                                 <th><i class="mdi mdi-twitter icon-md text-danger"></i></th>
                                                 <th><i class="mdi mdi-amazon icon-md text-warning"></i></th>
+                                                <th><i class="mdi mdi-facebook icon-md text-primary"></i></th>
                                                 <th><i class="mdi mdi-currency-usd icon-md text-dark"></i></th>
 
                                             </tr>
@@ -160,24 +160,24 @@ Map<String,Integer> oblisecurity = obligation.getSecurityBalance();
                                             <tr>
                                             <tr>
                                                 <td>Corporate Actions</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td>1</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>-</td>
                                             </tr>
                                             <tr>
                                                 <td>Final Balance</td>
                                                <% for(Map.Entry<String,Integer> entry : security.entrySet()) {
                                                 	   int obli = oblisecurity.get(entry.getKey());
-                                        	int quantity = entry.getValue() - obli;
+                                        	int quantity = entry.getValue();
                                         %>
-                                                <td><%= quantity %></td>
+                                                <td><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=quantity%>"></fmt:formatNumber></td>
                                             
                                                 <% }%>
                                                 
-                                                <td><%= balance.getFunds() - obligation.getFunds()%> </td>
+                                                <td><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=balance.getFunds()%>"></fmt:formatNumber></td>
                                             </tr>
                                         </tbody>
                                     </table>

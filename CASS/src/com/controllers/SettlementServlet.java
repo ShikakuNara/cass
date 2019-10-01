@@ -36,7 +36,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 	request.setAttribute("balance", memberBalance);
 	request.setAttribute("short", shortBalance);
 	request.setAttribute("obligation", obligationBalance);
-	request.setAttribute("initalBalance",initialBalance);
+	request.setAttribute("initialBalance",initialBalance);
 	
 	System.out.println("Balance: "+memberBalance);
 	System.out.println("Short: "+shortBalance);

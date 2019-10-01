@@ -109,9 +109,9 @@ List<Rights> right=balance.getRights();%>
                                                 <th>
                                                     Quantity
                                                 </th>
-                                                <th>
+                                                <!-- <th>
                                                     Action
-                                                </th>
+                                                </th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -121,13 +121,18 @@ List<Rights> right=balance.getRights();%>
                                             <tr>
                                                 <td><i class="mdi mdi-<%=entry.getKey().toLowerCase() %> icon-md text-dark"></i></td>
                                                 <td><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=quantity %>"></fmt:formatNumber></td>
-                                                <td><button type="button"
+                                                <!-- <td><button type="button"
                                                         class="btn btn-sm btn-outline-dark btn-rounded btn-icon">
                                                         <i class="mdi mdi-pencil"></i>
-                                                    </button></td>
+                                                    </button></td> -->
                                             </tr>
                                             <%} %>
-                                            
+                                            <tr><td><i class="mdi mdi-currency-usd icon-md text-dark"></i></td>
+                                            <td><%=balance.getFunds() %></td>
+                                            <!-- <td><button type="button"
+                                                        class="btn btn-sm btn-outline-dark btn-rounded btn-icon">
+                                                        <i class="mdi mdi-pencil"></i>
+                                                    </button></td></tr> -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -156,9 +161,6 @@ List<Rights> right=balance.getRights();%>
                                                 <th>
                                                     Price
                                                 </th>
-                                                <th>
-                                                    Action
-                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -168,10 +170,6 @@ List<Rights> right=balance.getRights();%>
                                                 <td><i class="mdi mdi-<%=r.getSecurityName().toLowerCase() %> icon-md text-dark"></i></td>
                                                 <td><fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=r.getQuantity()%>"></fmt:formatNumber></td>
                                                 <td>$<fmt:formatNumber type = "number" maxFractionDigits="3" value="<%=r.getMarketPrice() %>"></fmt:formatNumber></td>
-                                                <td><button type="button"
-                                                        class="btn btn-sm btn-outline-dark btn-rounded btn-icon">
-                                                        <i class="mdi mdi-share"></i>
-                                                    </button></td>
                                             </tr>
                                             <%} %>
                                         </tbody>
