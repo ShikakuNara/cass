@@ -29,14 +29,15 @@ public class ShortageHandlingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		int id = (int) request.getSession().getAttribute("cmid");
+		
 		System.out.println("Stock Shortage");
 		ShortageHandling shortageHandling = new  ShortageHandling();
 		BalanceDaoUtil balanceDao = new BalanceDaoUtil();
 
-		Balance memberBalance  = balanceDao.getBalanceByClearingMember(1);
+		Balance memberBalance  = balanceDao.getBalanceByClearingMember(id);
 		ObligationBalanceDaoUtil obligationDao = new ObligationBalanceDaoUtil();
-		Balance obligationBalance = obligationDao.getBalanceByClearingMember(1);
+		Balance obligationBalance = obligationDao.getBalanceByClearingMember(id);
 		
 		
 		System.out.println("Obligation: "+obligationBalance);

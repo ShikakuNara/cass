@@ -58,7 +58,7 @@ Map<String,Integer> oblisecurity = obligation.getSecurityBalance();
             </div>
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="clearingmember.jsp">
+                    <a class="nav-link" href="tradesdata">
                         <i class="mdi mdi-database menu-icon text-primary"></i>
                         <span class="menu-title">Trade Data</span>
                     </a>
@@ -70,25 +70,25 @@ Map<String,Integer> oblisecurity = obligation.getSecurityBalance();
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="settlreport.jsp">
+                    <a class="nav-link" href="settlement">
                         <i class="mdi mdi-file-check menu-icon text-info"></i>
                         <span class="menu-title">Settlement Report </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="reconstatement.jsp">
+                    <a class="nav-link" href="recon">
                         <i class="mdi mdi-chart-bar menu-icon text-success"></i>
                         <span class="menu-title">Reconciliation Statement </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="account.jsp">
+                    <a class="nav-link" href="displayBalance">
                         <i class="mdi mdi-account menu-icon text-dark"></i>
                         <span class="menu-title">Account </span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login.jsp">
+                    <a class="nav-link" href="logout">
                         <i class="mdi mdi-logout-variant menu-icon text-danger"></i>
                         <span class="menu-title">Logout</span>
                     </a>

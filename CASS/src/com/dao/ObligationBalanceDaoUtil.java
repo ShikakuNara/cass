@@ -34,9 +34,9 @@ public class ObligationBalanceDaoUtil implements BalanceDao{
 				Map<String, Integer> securityBalance = new HashMap<String,Integer>();
 				securityBalance.put("Facebook", rs.getInt("facebook"));
 				securityBalance.put("LinkedIn", rs.getInt("linkedin"));
-				securityBalance.put("GE", rs.getInt("ge"));
+				securityBalance.put("Amazon", rs.getInt("amazon"));
 				securityBalance.put("Apple", rs.getInt("apple"));
-				securityBalance.put("Walmart", rs.getInt("walmart"));
+				securityBalance.put("Twitter", rs.getInt("twitter"));
 				balance.setSecurityBalance(securityBalance);
 				
 				balances.add(balance);
@@ -51,7 +51,7 @@ public class ObligationBalanceDaoUtil implements BalanceDao{
 	@Override
 	public boolean updateAllBalances(List<Balance> balances) {
 		boolean isUpdated = false;
-		String SQL_UPDATE_BALANCES = "UPDATE obligationbalances SET funds=?,facebook=?,linkedin=?,ge=?,walmart=?,apple=? WHERE clearingMemberId=?";
+		String SQL_UPDATE_BALANCES = "UPDATE obligationbalances SET funds=?,facebook=?,linkedin=?,amazon=?,twitter=?,apple=? WHERE clearingMemberId=?";
 		
 		try(Connection conn = DBConnection.openConnection()){
 			conn.setAutoCommit(false);
@@ -61,8 +61,8 @@ public class ObligationBalanceDaoUtil implements BalanceDao{
 				ps.setDouble(1, balance.getFunds());
 				ps.setInt(2, balance.getSecurityBalance().get("Facebook"));
 				ps.setInt(3, balance.getSecurityBalance().get("LinkedIn"));
-				ps.setInt(4, balance.getSecurityBalance().get("GE"));
-				ps.setInt(5, balance.getSecurityBalance().get("Walmart"));
+				ps.setInt(4, balance.getSecurityBalance().get("Amazon"));
+				ps.setInt(5, balance.getSecurityBalance().get("Twitter"));
 				ps.setInt(6, balance.getSecurityBalance().get("Apple"));
 				ps.setInt(7, balance.getClearingMemberId());
 				
@@ -100,9 +100,9 @@ public class ObligationBalanceDaoUtil implements BalanceDao{
 				Map<String, Integer> securityBalance = new HashMap<>();
 				securityBalance.put("Facebook", rs.getInt("facebook"));
 				securityBalance.put("LinkedIn", rs.getInt("linkedin"));
-				securityBalance.put("GE", rs.getInt("ge"));
+				securityBalance.put("Amazon", rs.getInt("amazon"));
 				securityBalance.put("Apple", rs.getInt("apple"));
-				securityBalance.put("Walmart", rs.getInt("walmart"));
+				securityBalance.put("Twitter", rs.getInt("twitter"));
 				balance.setSecurityBalance(securityBalance);
 			}
 		} catch (SQLException e) {

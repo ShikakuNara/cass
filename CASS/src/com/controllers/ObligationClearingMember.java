@@ -23,12 +23,12 @@ public class ObligationClearingMember extends HttpServlet {
        
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		int id = (int) request.getSession().getAttribute("cmid");
 		ShortageHandling shortageHandling = new  ShortageHandling();
 		BalanceDaoUtil balanceDao = new BalanceDaoUtil();
 		ObligationBalanceDaoUtil obligationDao = new ObligationBalanceDaoUtil();
-		Balance memberBalance  = balanceDao.getBalanceByClearingMember(1);
-		Balance obligationBalance = obligationDao.getBalanceByClearingMember(1);
+		Balance memberBalance  = balanceDao.getBalanceByClearingMember(id);
+		Balance obligationBalance = obligationDao.getBalanceByClearingMember(id);
 
 		Balance shortBalance = shortageHandling.calculateShortage(memberBalance, obligationBalance);
 		

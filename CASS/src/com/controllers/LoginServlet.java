@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.beans.Trade;
 import com.beans.User;
@@ -47,19 +48,12 @@ public class LoginServlet extends HttpServlet {
 		else if(user.getPassword().equals(password) && user.getRole().equals(Role.CM))
 		{
 		
-			TradeDaoUtil memberDao = new TradeDaoUtil();
-			int id =1;
-			List<Trade> trades = memberDao.getTradesByClearingMember(id);
-			
-
-			
-			
-			System.out.println("Count:"+trades.size());
-
-			request.setAttribute("trades", trades);
-			request.setAttribute("name", "Citi");
-			RequestDispatcher dispatcher = request.getRequestDispatcher("clearingmember.jsp");
-			dispatcher.forward(request, response);
+			int id = user.getClearingMemberId();
+			HttpSession session = request.getSession();
+			session.setAttribute("cmid", id);
+			response.sendRedirect("tradesdata");
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("trades1");
+//			dispatcher.forward(request, response);
 			
 		}
 		else

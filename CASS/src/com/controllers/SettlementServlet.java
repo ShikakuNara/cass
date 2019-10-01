@@ -22,13 +22,14 @@ public class SettlementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	int id = (int) request.getSession().getAttribute("cmid");
 	
 	ShortageHandling shortageHandling = new  ShortageHandling();
 	BalanceDaoUtil balanceDao = new BalanceDaoUtil();
 	ObligationBalanceDaoUtil obligationDao = new ObligationBalanceDaoUtil();
-	Balance memberBalance  = balanceDao.getBalanceByClearingMember(6);
-	Balance obligationBalance = obligationDao.getBalanceByClearingMember(6);
-	Balance initialBalance=balanceDao.getInitialBalanceByClearingMember(6);
+	Balance memberBalance  = balanceDao.getBalanceByClearingMember(id);
+	Balance obligationBalance = obligationDao.getBalanceByClearingMember(id);
+	Balance initialBalance=balanceDao.getInitialBalanceByClearingMember(id);
 
 	Balance shortBalance = shortageHandling.calculateShortage(memberBalance, obligationBalance);
 	

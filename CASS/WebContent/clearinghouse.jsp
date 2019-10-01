@@ -24,109 +24,156 @@
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
  <script>
- var tradeId;
- var table;
- var edit=0;
- var makeTable =  function () {
-     table = $('#recent-trades-listing').DataTable({
-       
-       "lengthChange": false,
-       "pageLength":7,
-       "select": true,
-       "ordering": true,
-       
-     }); } 
+var tradeId;
+        var table;
+        var makeTable =  function () {
+            table = $('#recent-trades-listing').DataTable({
+              "lengthChange": false,
+              "pageLength":7,
+              "select": true,
+              "ordering": true,
+              
+            }); } 
 $(document).ready( function() {       
-$.ajax({ 
- type: 'GET', 
- url: 'showAllTrades',  
- dataType: 'json',
-	success: function (data) {
- console.log("plkjh");
- 	makeTable();
- 	tradeId=0;
- 	table.rows().remove().draw();
-     $.each(data, function(index,element) {
-    	var icon = "<i class='mdi mdi-";
-    	var icon_end = " icon-md'></i>";
-     	table.row.add([element.tradeId,icon.concat(element.securityName.toLowerCase(),icon_end),element.quantity,element.price,element.buyer,element.seller,"<button id='editTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal' data-target='#exampleModal'>Edit</button> <button id='removeTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal'>Remove</button>"])
-             
-     });
-     table.draw();
-    trnd;
-     
- }
-}); 
+	$.ajax({ 
+	    type: 'GET', 
+	    url: 'showAllTrades',  
+	    dataType: 'json',
+		success: function (data) {
+	    console.log("plkjh");
+	    	makeTable();
+	    	table.rows().remove().draw();
+	        $.each(data, function(index,element) {
+	        	var icon ="<i class='mdi mdi-";
+	        	var icon_end = " icon-md' >";
+	        	var html = "<div class='template-demo d-flex justify-content-between flex-nowrap'><button id='editTrade' type='button' class='mt-0 px-0 py-0 btn btn-outline-secondary btn-rounded btn-icon justify-content-between'><i class='mdi mdi-pencil' data-dismiss='modal' data-target='#exampleModal'></i></button><button type='button' id='removeTrade' class='mt-0 px-0 py-0 btn btn-outline-secondary btn-rounded btn-icon' data-dismiss='modal'><i class='mdi mdi-delete'></i></button></div>";
+	        	table.row.add([element.tradeId,icon.concat(element.securityName.toLowerCase(),icon_end),element.quantity,element.price,element.buyer,element.seller,html])
+	                
+	        });
+	        table.draw();
+	       tradeId=0;
+	        
+	    }
+	}); 
 });
 
 
 $(document).on("click", "#insertTrades", function() {   
-alert(tradeId);
-if(tradeId==0)
-{	
-$.ajax({ 
- type: 'GET', 
- url: 'addTrade', 
- data: {tid:"0",securityName: security.value,quantity:quantity.value,price:price.value,buyer:buyer.value,seller:seller.value }, 
- dataType: 'json',
- success: function (data) { 
- 	console.log(data)
- 	
- 	table.row.add([data.tradeId,data.securityName,data.quantity,data.price,data.buyer,data.seller,"<button id='editTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal' data-target='#exampleModal'>Edit</button> <button id='removeTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal'>Remove</button>"])
- 	table.draw();
- 	
- }
-}); 
-}
-
-else
-{	
+	alert(tradeId);
+	if(tradeId==0)
+	{	
 	$.ajax({ 
 	    type: 'GET', 
 	    url: 'addTrade', 
-	    data: {tid:tradeId,securityName: security.value,quantity:quantity.value,price:price.value,buyer:buyer.value,seller:seller.value }, 
+	    data: {tid:"0",securityName: security.value,quantity:quantity.value,price:price.value,buyer:buyer.value,seller:seller.value }, 
 	    dataType: 'json',
 	    success: function (data) { 
 	    	console.log(data)
-	    	
-	    	table.row.add([data.tradeId,data.securityName,data.quantity,data.price,data.buyer,data.seller,"<button id='editTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal' data-target='#exampleModal'>Edit</button> <button id='removeTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal'>Remove</button>"])
+	    	var icon ="<i class='mdi mdi-";
+	        	var icon_end = " icon-md' >";
+	    	table.row.add([data.tradeId,icon.concat(data.securityName.toLowerCase(),icon_end),data.quantity,data.price,data.buyer,data.seller,"<button id='editTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal' data-target='#exampleModal'>Edit</button> <button id='removeTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal'>Remove</button>"])
 	    	table.draw();
-     	
+        	
 	    }
 	}); 
 }
-tradeId=0;
+	
+	else
+	{	
+		$.ajax({ 
+		    type: 'GET', 
+		    url: 'addTrade', 
+		    data: {tid:tradeId,securityName: security.value,quantity:quantity.value,price:price.value,buyer:buyer.value,seller:seller.value }, 
+		    dataType: 'json',
+		    success: function (data) { 
+		    	console.log(data)
+		    	var icon ="<i class='mdi mdi-";
+	        	var icon_end = " icon-md' >";
+		    	table.row.add([data.tradeId,icon.concat(data.securityName.toLowerCase(),icon_end),data.quantity,data.price,data.buyer,data.seller,"<button id='editTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal' data-target='#exampleModal'>Edit</button> <button id='removeTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal'>Remove</button>"])
+		    	table.draw();
+	        	
+		    }
+		}); 
+	}
+	tradeId=0;
 });
 
 
 
 $(document).on("click", "#removeTrade", function() {
-if(edit==0)
-	{
 	var data = table.row( $(this).parents('tr') ).data();
-	tradeId=data[0];
-	}
-   alert(tradeId);
-$.ajax({ 
- type: 'GET', 
- url: 'deleteTrade', 
- data: {tid: data[0]}, 
- dataType: 'json',
- success: function () { 
-    table.row(this).remove();
-    table.draw();
- }
-}); 
+	 tradeId=data[0];
+	 
+	 alert(tradeId);
+	$.ajax({ 
+	    type: 'GET', 
+	    url: 'deleteTrade', 
+	    data: {tid: data[0]}, 
+	    dataType: 'json',
+	    success: function () { 
+	    	console.log("done");
+	    	
+	    }
+	}); 
+	$.ajax({ 
+	    type: 'GET', 
+	    url: 'showAllTrades',  
+	    dataType: 'json',
+		success: function (data) {
+	    console.log("plkjh");
+	    	//makeTable();
+	    	table.rows().remove().draw();
+	        $.each(data, function(index,element) {
+	        	var icon ="<i class='mdi mdi-";
+	        	var icon_end = " icon-md' >";
+	        	table.row.add([element.tradeId,icon.concat(element.securityName.toLowerCase(),icon_end),element.quantity,element.price,element.buyer,element.seller,"<button id='editTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal' data-target='#exampleModal'>Edit</button> <button id='removeTrade' class='btn btn-primary mr-2 mt-8' data-dismiss='modal'>Remove</button>"])
+	                
+	        });
+	        table.draw();
+	       tradeId=0;
+	        
+	    }
+	}); 
+
 });
 
 
 $(document).on("click", "#editTrade", function() {  
 	var data = table.row( $(this).parents('tr') ).data();
-	tradeId=data[0];
-	edit=1;
-$("#removeTrade")[0].click();
-$("#outAdd")[0].click();
-//tradeId=0;
+	 tradeId=data[0];
+	 $.ajax({ 
+		    type: 'GET', 
+		    url: 'deleteTrade', 
+		    data: {tid: data[0]}, 
+		    dataType: 'json',
+		    success: function () { 
+		    	console.log("done");
+		    	
+		    }
+		}); 
+	 var filteredData = table
+	    .rows()
+	    .indexes()
+	    .filter( function ( value, index ) {
+	       return table.row(value).data()[0] == tradeId; 
+	    } );
+	table.rows( filteredData )
+	.remove()
+	.draw();
+	 alert(tradeId);
+	 document.getElementById("security").value=data[1];
+	 document.getElementById("security").placeholder=data[1];
+	 document.getElementById("quantity").value=data[2];
+	 document.getElementById("quantity").placeholder=data[2];
+	 document.getElementById("price").value=data[3];
+	 document.getElementById("price").placeholder=data[3];
+	 document.getElementById("buyer").value=data[4];
+	 document.getElementById("buyer").placeholder=data[4];
+	 document.getElementById("seller").value=data[5];
+	 document.getElementById("seller").placeholder=data[5];
+	$("#outAdd")[0].click();
+	
+	//tradeId=0;
 });
 </script>
 <script type="text/javascript" src="https://cdn.datatables.net/w/bs4/dt-1.10.18/b-1.5.6/sl-1.3.0/datatables.min.js"></script>
@@ -173,7 +220,7 @@ String status = (String)request.getAttribute("status");
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="login.html">
+            <a class="nav-link" href="logout">
               <i class="mdi mdi-logout-variant menu-icon text-danger"></i>
               <span class="menu-title">Logout</span>
             </a>
@@ -273,12 +320,7 @@ String status = (String)request.getAttribute("status");
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">ADD TRADE</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+      
       <div class="modal-body">
 			<div class="card-body">
                   <h4 class="card-title"></h4>
@@ -291,9 +333,9 @@ String status = (String)request.getAttribute("status");
 						<select class="form-control" id="security">
                               <option>LinkedIn</option>
                               <option>Apple</option>
-                              <option>Walmart</option>
+                              <option>Twitter</option>
                               <option>Facebook</option>
-							  <option>GE</option>
+							  <option>Amazon</option>
                             </select>
 						
                       
@@ -378,7 +420,7 @@ String status = (String)request.getAttribute("status");
             $('.mdi-linkedin').addClass("text-info");
             $('.mdi-amazon').addClass("text-warning");
             $('.mdi-twitter').addClass("text-primary");
-        });
+        }
     </script>
   <!-- endinject -->
   <!-- Custom js for this page-->

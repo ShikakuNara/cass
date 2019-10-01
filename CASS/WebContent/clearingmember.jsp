@@ -51,7 +51,7 @@
             </div>
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="clearingmember.jsp">
+                    <a class="nav-link" href="tradesdata">
                         <i class="mdi mdi-database menu-icon text-primary"></i>
                         <span class="menu-title">Trade Data</span>
                     </a>
@@ -81,7 +81,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="login.html">
+                    <a class="nav-link" href="logout">
                         <i class="mdi mdi-logout-variant menu-icon text-danger"></i>
                         <span class="menu-title">Logout</span>
                     </a>
@@ -141,7 +141,7 @@
                                 </div><br><br>
                                 <div class="row">
                                     <div class="col-4"></div>
-                                    <div class="col-4"><a href="updateSubmit"><button 
+                                    <div class="col-4"><a href="updateSubmit" style="text-decoration: none"><button 
                                             class="btn btn-block btn-primary mt-2 mt-xl-0 btn-icon-text"><i
                                                 class="mdi mdi-elevator btn-icon-prepend"></i> Submit to
                                             Clearing House</button></a></div>

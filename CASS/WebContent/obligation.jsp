@@ -67,7 +67,7 @@ List<Balance> obligations = (List<Balance>) request.getAttribute("obligation");
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="login.html">
+            <a class="nav-link" href="logout">
               <i class="mdi mdi-logout-variant menu-icon text-danger"></i>
               <span class="menu-title">Logout</span>
             </a>
@@ -151,60 +151,6 @@ List<Balance> obligations = (List<Balance>) request.getAttribute("obligation");
                             </div>
                           </div>
                         </div></div> 
-            <div class="row">
-                <div class="col-lg-6 grid-margin stretch-card">
-                    <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Funds</h4>
-                        <canvas id="barChart"></canvas>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 grid-margin stretch-card">
-                    <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Apple</h4>
-                        <canvas id="barChart1"></canvas>
-                    </div>
-                    </div>
-                </div>
-            </div>   
-            <div class="row">
-                    <div class="col-lg-6 grid-margin stretch-card">
-                        <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">LinkedIn</h4>
-                            <canvas id="barChart2"></canvas>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 grid-margin stretch-card">
-                        <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Walmart</h4>
-                            <canvas id="barChart3"></canvas>
-                        </div>
-                        </div>
-                    </div>
-                </div>   
-                <div class="row">
-                        <div class="col-lg-6 grid-margin stretch-card">
-                            <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Facebook</h4>
-                                <canvas id="barChart4"></canvas>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 grid-margin stretch-card">
-                            <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">GE</h4>
-                                <canvas id="barChart5"></canvas>
-                            </div>
-                            </div>
-                        </div>
-                    </div>   
       </div>
     </div>
   </div>

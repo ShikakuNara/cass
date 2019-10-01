@@ -24,7 +24,8 @@ public class UpdateSubmittedServlet extends HttpServlet {
 		
 		System.out.println("Update Submit");
 		
-		int id=1;
+		int id = (int) request.getSession().getAttribute("cmid");
+		
 		ClearingMemberDaoUtil memberDao = new ClearingMemberDaoUtil();
 		ClearingMember member = new ClearingMember();
 		member.setClearingMemberID(id);
